@@ -1,4 +1,5 @@
 import {
+  Cylinder,
   PointerLockControls,
   Shadow,
   Sphere,
@@ -13,10 +14,11 @@ import { Vector3 } from "three";
 
 const ORIGIN_VECTOR = new Vector3();
 const SAFE_OFFSET = 0.001; // Prevent Z Fighting.
+const JUMP_VELOCITY = 4.5;
 
 const velocityVector = new Vector3();
 
-const PhysicsRapierWorldPlayer = () => {
+const PhysicsRapierWorldPlayer = ({pointerRef}: any) => {
   // Keyboard Controls.
   const jumpOn = useKeyboardControls((state) => state.jump);
   const moveBackwardOn = useKeyboardControls((state) => state.moveBackward);
@@ -27,7 +29,7 @@ const PhysicsRapierWorldPlayer = () => {
 
   // References.
   const playerRef = useRef<any>(null!);
-  const pointerRef = useRef<any>(null!);
+  // const pointerRef = useRef<any>(null!);
   const shadowRef = useRef<any>(null!);
 
   useFrame(() => {
@@ -94,11 +96,24 @@ const PhysicsRapierWorldPlayer = () => {
     // Match Shadow position to Player position.
     shadow.position.copy(playerPosition);
     shadow.position.y = SAFE_OFFSET;
+
+
+     // Logic for jumping
+     if (jumpOn && Math.abs(playerVelocity.y) < 0.005) {
+      velocityVector.y = JUMP_VELOCITY; // Apply jump velocity if not already jumping
+    }
+
+
+     // Apply linear velocity to Player
+     player.setLinvel(velocityVector);
+
+
+
   });
 
   return (
     <group name="Player">
-      <PointerLockControls ref={pointerRef} />
+      {/* <PointerLockControls ref={pointerRef} /> */}
       <RigidBody //
         canSleep={false}
         colliders="ball"
@@ -106,12 +121,20 @@ const PhysicsRapierWorldPlayer = () => {
         ref={playerRef}
         type="dynamic"
       >
-        <Sphere args={[0.5, 8, 8]}>
+        <Sphere args={[0.17, 6, 6]}>
           <meshBasicMaterial //
             color={0x00ff00}
             wireframe={false}
           />
         </Sphere>
+
+
+      {/* <Cylinder args={[0.5, 0.5, 1.6, 7]}>
+          <meshBasicMaterial //
+            color={0x00ff00}
+            wireframe={false}
+          />
+        </Cylinder> */}
       </RigidBody>
       <Shadow //
         color="black"

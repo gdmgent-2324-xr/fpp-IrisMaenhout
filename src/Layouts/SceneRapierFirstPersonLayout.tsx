@@ -41,7 +41,7 @@ const SceneRapierFirstPersonLayout = ({
           <KeyboardControls map={KEYBINDINGS.UNIVERSAL}>
             <Physics
               colliders={undefined}
-              debug={physicsControls.showDebug}
+              // debug={physicsControls.showDebug}
               gravity={[
                 physicsControls.gravity.x,
                 physicsControls.gravity.y,
@@ -57,14 +57,14 @@ const SceneRapierFirstPersonLayout = ({
         </Suspense>
       </Canvas>
       <CursorOverlay />
-      <Leva
+      {/* <Leva
         collapsed={false}
         fill={false}
         flat={false}
         hidden={false}
         oneLineLabels={true}
         titleBar={true}
-      />
+      /> */}
       <Loader />
     </>
   );
