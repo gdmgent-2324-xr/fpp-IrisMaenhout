@@ -6,13 +6,6 @@ import { Floor } from "Components/Room/Floor/Floor";
 import { useEffect, useRef, useState } from "react";
 import { Environment, SoftShadows } from "@react-three/drei";
 import { Bloom } from "Components/Effects/Bloom";
-import {
-  Cylinder,
-  PointerLockControls,
-  Shadow,
-  Sphere,
-  useKeyboardControls,
-} from "@react-three/drei";
 
 
 const PhysicsRapierWorld = () => {
@@ -21,8 +14,6 @@ const PhysicsRapierWorld = () => {
     isDarkmode: false,
     today: new Date()
   });
-
-  const pointerRef = useRef<any>(null!);
 
 
   const getCurrentTime = (date: Date) => {
@@ -91,10 +82,8 @@ const PhysicsRapierWorld = () => {
       <Obstacles /> */}
        {/* <SoftShadows samples={20} /> */}
       {/* <SoftShadows size={30} samples={18}/> */}
-      <RoomModel isDarkMode={timeSettings.isDarkmode} time={getCurrentTime(timeSettings.today)} pointerRef={pointerRef}/>
-      <Player pointerRef={pointerRef}/>
-
-      <PointerLockControls ref={pointerRef} />
+      <RoomModel isDarkMode={timeSettings.isDarkmode} time={getCurrentTime(timeSettings.today)}/>
+      <Player/>
 
       {/* <Environment preset={isDarkMode? "night" : "sunset"} /> */}
     </group>

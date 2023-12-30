@@ -3,266 +3,27 @@ import { useGLTF } from "@react-three/drei";
 import { GLTFResult } from "../gltfResult";
 
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { GLTF } from "three-stdlib";
 import glbModel from '../room_final.glb';
 import { RigidBody } from "@react-three/rapier";
 import { Radio } from "./Radio/Radio";
 import { LightStrip } from "./LightStrip/LightStrip";
 import { OpenBook } from "./OpenBook/OpenBook";
+import ContactCard from "../ContactCard/ContactCard";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { Mesh } from "three";
 
-export function Table({ nodes, materials }: any) {
+import contactCardImg from './assets/Beige Gradient Minimalist Modern Business Card (2).png';
+
+export function Table({ nodes, materials, isDarkMode }: any) {
+
+  const contactCardRef = useRef<Mesh>(null!);
 
     return (
         // <RigidBody type="fixed">
         <>
-            {/* <group name="Bookcase" position={[-2.608, 1.253, -2.75]}>
-                <mesh
-                    name="Cube064"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064.geometry}
-                    material={materials.Stylized_wood_vertical_brown}
-                />
-                <mesh
-                    name="Cube064_1"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_1.geometry}
-                    material={materials["Material.004"]}
-                />
-                <mesh
-                    name="Cube064_2"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_2.geometry}
-                    material={materials["Material.001"]}
-                /> */}
-
-                {/* Post-it JS */}
-                {/* <mesh
-                    name="Cube064_3"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_3.geometry}
-                    material={materials.JS}
-                /> */}
-
-                {/* Post-it blender */}
-                {/* <mesh
-                    name="Cube064_4"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_4.geometry}
-                    material={materials.Blender}
-                /> */}
-
-                {/* Post-it Laravel */}
-                {/* <mesh
-                    name="Cube064_5"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_5.geometry}
-                    material={materials.Laravel}
-                /> */}
-
-                {/* Post-it CSS */}
-                {/* <mesh
-                    name="Cube064_6"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_6.geometry}
-                    material={materials.Light_blue_css}
-                /> */}
-
-                {/* Post-it React */}
-                {/* <mesh
-                    name="Cube064_7"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_7.geometry}
-                    material={materials.React}
-                /> */}
-
-                {/* Post-it NodeJs */}
-                {/* <mesh
-                    name="Cube064_8"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_8.geometry}
-                    material={materials.NodeJS}
-                />
-
-                <mesh
-                    name="Cube064_9"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_9.geometry}
-                    material={materials["Material.003"]}
-                /> */}
-
-                {/* Post-it Tailwind */}
-                {/* <mesh
-                    name="Cube064_10"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_10.geometry}
-                    material={materials.TailwindCSS}
-                /> */}
-
-                {/* Adobe XD */}
-                {/* <mesh
-                    name="Cube064_11"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_11.geometry}
-                    material={materials.AdobeXD}
-                />
-
-
-                <mesh
-                    name="Cube064_12"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_12.geometry}
-                    material={materials["Light_green.001"]}
-                />
-
-                <mesh
-                    name="Cube064_13"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_13.geometry}
-                    material={materials.White}
-                />
-
-                <mesh
-                    name="Cube064_14"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_14.geometry}
-                    material={materials.Yellow}
-                />
-
-
-                <mesh
-                    name="Cube064_15"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_15.geometry}
-                    material={materials.Light_pink}
-                />
-
-                <mesh
-                    name="Cube064_16"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_16.geometry}
-                    material={materials.Purple}
-                />
-
-                <mesh
-                    name="Cube064_17"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_17.geometry}
-                    material={materials["Blue.001"]}
-                />
-
-                <mesh
-                    name="Cube064_18"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_18.geometry}
-                    material={materials.Light_green_blue}
-                />
-
-                <mesh
-                    name="Cube064_19"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_19.geometry}
-                    material={materials.light_orange_yellow}
-                />
-
-                <mesh
-                    name="Cube064_20"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_20.geometry}
-                    material={materials["Mid-blue"]}
-                />
-
-                <mesh
-                    name="Cube064_21"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_21.geometry}
-                    material={materials.Pink_red}
-                />
-                <mesh
-                    name="Cube064_22"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_22.geometry}
-                    material={materials["Brown.001"]}
-                />
-                <mesh
-                    name="Cube064_23"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_23.geometry}
-                    material={materials.Strong_pink}
-                />
-                <mesh
-                    name="Cube064_24"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_24.geometry}
-                    material={materials["Material.002"]}
-                />
-                <mesh
-                    name="Cube064_25"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_25.geometry}
-                    material={materials["Blue.002"]}
-                />
-                <mesh
-                    name="Cube064_26"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube064_26.geometry}
-                    material={materials.Mat_black}
-                />
-
-                <LightStrip />
-          
-                <group name="Table" position={[0.961, -1.153, 0]}>
-                    <mesh
-                    name="Cube001"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube001.geometry}
-                    material={materials.Stylized_wood_horizontal_light_brown}
-                    />
-                    <mesh
-                    name="Cube001_1"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Cube001_1.geometry}
-                    material={materials.Stylized_wood_vertical_brown}
-                    /> */}
-
-                    {/* Radio */}
-                    {/* <Radio />
-                </group>
-        </group> */}
-
-        {/* <OpenBook /> */}
-        
-        {/* </RigidBody> */}
-
 
         <RigidBody colliders="hull" type="fixed">
         <group name="Table">
@@ -1062,6 +823,17 @@ export function Table({ nodes, materials }: any) {
         </group>
 
         <OpenBook />
+        {/* <group 
+        position={[-0.726, 1.323, -2.964]}
+        rotation={[0, 0.208, 0]}
+        scale={1.54}>
+        <ContactCard materials={materials} nodes={nodes}/>
+
+        </group> */}
+        
+        <ContactCard nodes={nodes} materials={materials} isDarkMode={isDarkMode}/>
+        
+
         </RigidBody>
 
         </>

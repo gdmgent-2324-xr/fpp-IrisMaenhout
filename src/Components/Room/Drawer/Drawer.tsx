@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
+import ContactCard from "../ContactCard/ContactCard";
 
 export function Drawer({nodes, materials} :any) {
 
@@ -74,13 +75,14 @@ export function Drawer({nodes, materials} :any) {
                     geometry={nodes.Drawer.geometry}
                     material={materials.Mat_white}
                 >
-                    <mesh
+                    {/* <mesh
                         name="Buisness_card"
                         castShadow
                         receiveShadow
                         geometry={nodes.Buisness_card.geometry}
                         material={materials.Buisness_card}
-                    />
+                    /> */}
+                    <ContactCard nodes={nodes} materials={materials}/>
                 </mesh>
             </RigidBody>
 

@@ -26,7 +26,7 @@ import PostIts from "./Table/PostIts/PostIts";
 import ProjectFrames from "./ProjectFrames/ProjectFrames";
 import Floor from "./Floor/Floor";
 
-export function RoomModel({ isDarkMode, time, pointerRef }: { isDarkMode: boolean; time: string, pointerRef: any }) {
+export function RoomModel({ isDarkMode, time}: { isDarkMode: boolean; time: string}) {
   const { nodes, materials } = useGLTF(glbModel) as GLTFResult;
   return (
     <group dispose={null}>
@@ -36,7 +36,7 @@ export function RoomModel({ isDarkMode, time, pointerRef }: { isDarkMode: boolea
         <MainLamp nodes={nodes} materials={materials} />
 
         <Radio nodes={nodes} materials={materials}/>
-        <Table nodes={nodes} materials={materials} />
+        <Table nodes={nodes} materials={materials} isDarkMode={isDarkMode}/>
         <PostIts nodes={nodes} materials={materials} />
         
         <Chair nodes={nodes} materials={materials} />
@@ -50,7 +50,7 @@ export function RoomModel({ isDarkMode, time, pointerRef }: { isDarkMode: boolea
         <Drawer nodes={nodes} materials={materials} /> 
 
 
-        <Bed nodes={nodes} materials={materials} isDarkMode={isDarkMode} pointerRef={pointerRef}/>
+        <Bed nodes={nodes} materials={materials} isDarkMode={isDarkMode}/>
         
         
         <Window nodes={nodes} materials={materials} darkMode={isDarkMode}/>
@@ -60,7 +60,7 @@ export function RoomModel({ isDarkMode, time, pointerRef }: { isDarkMode: boolea
 
         <Laptop nodes={nodes} materials={materials} />
 
-        <ProjectFrames nodes={nodes} materials={materials} />
+        <ProjectFrames nodes={nodes} materials={materials} isDarkMode={isDarkMode}/>
 
         <Nintendo nodes={nodes} materials={materials}/>
       </group>

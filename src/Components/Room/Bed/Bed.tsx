@@ -5,11 +5,15 @@ import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
 import Popup from "Components/UserInterface/Popups/Popup";
+import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
 
 
-export function Bed({nodes, materials, isDarkMode, pointerRef} :any) {
+
+export function Bed({nodes, materials, isDarkMode} :any) {
     
+
+
     const colors = {
         yellow: "#f7d96a",
         purple: "#b284d1",
@@ -23,30 +27,20 @@ export function Bed({nodes, materials, isDarkMode, pointerRef} :any) {
     function handleClick(){
         // Open popup with choices for different colors
         setShowPopup(true);
-        pointerRef.current.lock();
-
-        // Create a new KeyboardEvent for the Escape key
-        const escapeKeyEvent = new KeyboardEvent('keydown', {
-            key: 'Escape',
-            code: 'Escape',
-            keyCode: 27,
-            which: 27,
-            bubbles: true,
-            cancelable: true,
-        });
-  
-        // Dispatch the event on a specific element or the window
-        document.dispatchEvent(escapeKeyEvent);
-
-
-
     }
 
     function handleColorChange(color: string) {
+        if(sessionStorage.getItem("isPointerLockActive")){
+            sessionStorage.removeItem("isPointerLockActive");
+        }
+
+        console.log("moet weer normaal zijn")
+
         setSelectedColor(color);
         setShowPopup(false); // Close the popup after color selection
-        pointerRef.current.unlock();
-      }
+
+        setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
+    }
 
     return (
         <RigidBody colliders={"hull"} type="fixed">
@@ -65,6 +59,10 @@ export function Bed({nodes, materials, isDarkMode, pointerRef} :any) {
                 rotation={[Math.PI / 2, Math.PI / 2, 0]}
                 scale={[-1.684, -1.096, -0.576]}
                 onClick={handleClick}
+                onPointerEnter={cursorActiveHandler}
+                onPointerLeave={cursorInactiveHandler}
+                onPointerOut={cursorInactiveHandler}
+                onPointerOver={cursorActiveHandler}
                 >
                 
                 <group
@@ -129,11 +127,14 @@ export function Bed({nodes, materials, isDarkMode, pointerRef} :any) {
                 
                 {showPopup && 
                     
-                    <Html>
+                    <Html
+                    >
                         <Popup 
                         title="Kies een kleur voor de bedovertrek:"
                         isDarkmode={isDarkMode} 
-                        handleClose={()=> setShowPopup(false)}>
+                        handleClose={()=> {
+                            setShowPopup(false);
+                            setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);}}>
                             <div className="flex gap-8">
                                 <button className="w-12 h-12 bg-amber-300 block rounded-full"
                                 onClick={()=> handleColorChange(colors.yellow)}>

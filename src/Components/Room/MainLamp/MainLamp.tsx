@@ -128,7 +128,7 @@ export function MainLamp({nodes, materials} :any) {
                 <directionalLight
                         name="Light_inside"
                         color={"#FFA154"}
-                        intensity={5}
+                        intensity={10}
                         position={[0, 0.07, 0]}
                         rotation={[-Math.PI / 2, 0, 0]}
                         scale={0.24}
@@ -136,7 +136,7 @@ export function MainLamp({nodes, materials} :any) {
                     />
                 <pointLight
                     name="Light_roof"
-                    intensity={10}
+                    intensity={15}
                     decay={2}
                     color={"#FFB48A"}
                     position={[0, 0.497, 0]}
