@@ -1,12 +1,24 @@
 import React, { ReactNode } from 'react';
 
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import ChangingProgressProvider from "../../Helpers/ChangingProgressProvider";
+
 type PopupProps = {
   title: string;
   text: string;
   isDarkmode: boolean;
+  currentProgessPercentage: number;
+  previousProgessPercentage: number;
+
 };
 
-const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode }) => {
+type CustomStyles = {
+  // Add the 'transition' property
+  transition?: string;
+} & React.CSSProperties;
+
+const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProgessPercentage, previousProgessPercentage }) => {
     return (
       <div className="w-full fixed top-0 left-0 w-full h-full flex items-center justify-center h-full">
 
@@ -16,7 +28,51 @@ const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode }) => {
             
           <p>{text}</p>
 
-          <p className={`${isDarkmode ? 'text-violet-400' : 'text-pink-700'} mt-12 italic`}>Klik om dit project te bekijken</p>
+
+          <div className='mt-12 flex gap-8 items-center'>
+            <div className='w-1/4'>
+
+              <ChangingProgressProvider values={[previousProgessPercentage, currentProgessPercentage]}>
+              {percentage => (
+              
+
+                <CircularProgressbar
+                  value={percentage}
+                  // text={`${percentage}%`}
+                  styles={buildStyles({
+                    pathTransition: percentage === 0 ? "none" : "stroke-dashoffset 0.5s ease 0s",
+                    // How long animation takes to go from one percentage to another, in seconds
+                    pathTransitionDuration: 0.5,
+                    
+                    // Colors
+                    pathColor: `${isDarkmode ? 'rgb(167, 139, 250)' : 'rgb(190, 18, 60)'}`,
+                    trailColor: `${isDarkmode ? '#222222': '#d6d6d6'}`,
+                  } as CustomStyles)} // Cast to CustomStyles
+                />
+              )}
+            </ChangingProgressProvider>
+
+
+
+              {/* <CircularProgressbar 
+                value={progessPercentage} 
+                styles={buildStyles({
+                    // How long animation takes to go from one percentage to another, in seconds
+                    pathTransitionDuration: 0.5,
+
+                    // Colors
+                    pathColor: `${isDarkmode ? `rgba(167, 139, 250, ${progessPercentage / 100})` : `rgba(190, 18, 60, ${progessPercentage / 100})`}`,
+                    trailColor: `${isDarkmode ? '#222222': '#d6d6d6'}`,
+                  })
+                } 
+              /> */}
+
+            </div>
+            
+            <p className={`${isDarkmode ? 'text-violet-400' : 'text-pink-700'} italic`}>Klik lang om dit project te bekijken</p>
+
+          </div>
+          
         </div>
       </div>
     );

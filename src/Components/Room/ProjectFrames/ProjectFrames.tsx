@@ -6,7 +6,6 @@ import { GLTF } from "three-stdlib";
 import { RigidBody } from "@react-three/rapier";
 import HoverPopup from "Components/UserInterface/Popups/HoverPopup";
 import { useFrame, useThree } from "@react-three/fiber";
-import { KEYBINDINGS } from "Configs/keybindings";
 
 export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
@@ -27,6 +26,8 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
     }
 
+    const holdDuration = 2000;
+
     const [hoverPopupData, setHoverPopupData] = useState({
         isHovered: false,
         popupInfo: {
@@ -35,40 +36,115 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
         }
     });
 
+
+    const [timeMouse, setTimeMouse] = useState({
+        mouseUp: 0,
+        mouseDown: 0
+    });
+
+    const [progressBarPercentage, setProgressBarPercentage] = useState({
+        prevPercentage : 0,
+        currentPercentage: 0
+    });
+
+    useEffect(() => {
+        let intervalId: NodeJS.Timeout;
+        
+        const handleProgress = () => {
+          const currentTime = Date.now();
+          const holdTime = currentTime - timeMouse.mouseDown;
+
+          console.log((holdTime / holdDuration) * 100);
+      
+          if (holdTime >= 0 && holdTime <= holdDuration) {
+            setProgressBarPercentage(prev => (
+                {
+                    prevPercentage: prev.currentPercentage,
+                    currentPercentage: (holdTime / holdDuration) * 100
+                }
+            ));
+          } else if (holdTime >= holdDuration) {
+            setProgressBarPercentage({
+                prevPercentage: 100,
+                currentPercentage: 100
+            });
+            clearInterval(intervalId);
+
+            
+          }
+        };
+      
+        if (timeMouse.mouseDown > 0) {
+          intervalId = setInterval(handleProgress, 100); // Adjust interval as needed for smoother updates
+        }
+      
+        return () => clearInterval(intervalId);
+      }, [timeMouse.mouseDown, holdDuration]);
+
    
 
-    
-
-    function openProject(link: string) {
-        
-        window.open(link, '_blank');
-        
-        alert("Wandel naar links of rechts tot jouw cursor niet meer in het kader zit van een project waarop je al eens eerder klikte, klik vervolgens op de ruimte om de cursor weer te activeren.");
+    // Get the time when the mouse is pressed
+    function handleMouseDown(){
+        console.log("MouseDown");
+        setTimeMouse({
+            mouseUp: 0,
+            mouseDown: Date.now()
+        });
     }
 
 
-    function handleOnHover(title: string, text: string){
-        setHoverPopupData(
+
+    function openProject(link: string) {
+
+        setTimeMouse(prev => (
             {
-                isHovered: true,
-                popupInfo: {
-                    title: title,
-                    text: text
-                }
+                ...prev,
+                mouseUp: Date.now()
+
             }
-        )
+        ));
+
+        if(progressBarPercentage.currentPercentage >= 100){
+            
+            console.log("open link");
+            window.open(link, '_blank');
+        }
+
+
+        setTimeout(()=>{
+            // Reset everything
+            setProgressBarPercentage({
+                prevPercentage: 0,
+                currentPercentage: 0
+            });
+
+            setTimeMouse({
+                mouseDown: 0,
+                mouseUp: 0
+
+            });
+        }, 50);
+
+    }
+
+    function handleOnHover(title: string, text: string){
+        setHoverPopupData({   
+            isHovered: true,
+            popupInfo: {
+                title: title,
+                text: text
+            }
+        });
     }
 
     function handleNotOnHover(){
-        setHoverPopupData(
-            {
-                isHovered: false,
-                popupInfo: {
-                    title: "",
-                    text: ""
-                }
+        setHoverPopupData({   
+            isHovered: false,
+            popupInfo: {
+                title: "",
+                text: ""
             }
-        )
+        });
     }
 
 
@@ -80,9 +156,12 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                     position={[-2.999, 1.83, 1.65]}
                     rotation={[0, 0, -Math.PI / 2]}
                     scale={0.545}
-                    onClick={()=> openProject("https://ntriga.be/")}
+                    // onClick={()=> openProject("https://ntriga.be/")}
                     onPointerOver={()=> handleOnHover(projectInfo.internship.title, projectInfo.internship.text)}
                     onPointerOut={handleNotOnHover}
+
+                    onPointerDown={handleMouseDown}
+                    onPointerUp={()=> openProject("https://ntriga.be/")}
                     >
                     <mesh
                         name="Plane004"
@@ -107,9 +186,12 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 position={[-2.999, 1.83, 1.65]}
                 rotation={[0, 0, -Math.PI / 2]}
                 scale={0.545}
-                onClick={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
+                // onClick={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
                 onPointerOver={()=> handleOnHover(projectInfo.deRuytter.title, projectInfo.deRuytter.text)}
                 onPointerOut={handleNotOnHover}
+
+                onPointerDown={handleMouseDown}
+                onPointerUp={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
                 >
                 <mesh
                     name="Plane008"
@@ -134,9 +216,12 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 position={[-2.999, 1.83, 1.65]}
                 rotation={[0, 0, -Math.PI / 2]}
                 scale={0.545}
-                onClick={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
+                // onClick={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
                 onPointerOver={()=> handleOnHover(projectInfo.edu.title, projectInfo.edu.text)}
                 onPointerOut={handleNotOnHover}
+
+                onPointerDown={handleMouseDown}
+                onPointerUp={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
                 >
                 <mesh
                     name="Plane023"
@@ -180,13 +265,15 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 </group>
             </RigidBody>
 
-            {/* Display the popup based on hover and sideways movement */}
+            {/* Display the popup based on hover */}
             {hoverPopupData.isHovered && (
                 <Html position={[-2.999, 1.83, 1.65]}>
                 <HoverPopup
                     title={hoverPopupData.popupInfo.title}
                     text={hoverPopupData.popupInfo.text}
                     isDarkmode={isDarkMode}
+                    currentProgessPercentage={progressBarPercentage.currentPercentage}
+                    previousProgessPercentage={progressBarPercentage.prevPercentage}
                 />
                 </Html>
             )}
