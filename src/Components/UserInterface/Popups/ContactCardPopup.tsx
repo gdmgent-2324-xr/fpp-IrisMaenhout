@@ -24,17 +24,17 @@ const ContactCardPopup : React.FC<PopupProps> = ({ handleClose, isDarkmode }) =>
         threshold: 0.8, // Percentage of the element that must be visible to trigger the callback
       };
 
-      let i = 0;
+      // let i = 0;
       const observer = new IntersectionObserver(([entry]) => {
-        i++;
-        console.log(i, "i");
-        if(i >= 2){
+        // i++;
+        // console.log(i, "i");
+        // if(i >= 2){
           if(sessionStorage.getItem("isPointerLockActive")){
             sessionStorage.removeItem("isPointerLockActive");
           }
           sessionStorage.setItem("isPointerLockActive", "false");
           console.log("Visible");
-        }
+        // }
         // setIsVisible(entry.isIntersecting);
         
       }, options);

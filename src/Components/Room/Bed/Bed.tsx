@@ -16,11 +16,16 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
     const colors = {
         yellow: "#f7d96a",
-        purple: "#b284d1",
+        purple: "#C084FC",
+        pink: "#FB7185",
+        blue: "#67E8F9",
+        green: "#6EE7B7",
     }
 
     const [selectedColor, setSelectedColor] = useState(colors.yellow);
     const [showPopup, setShowPopup] = useState(false);
+    
+    // const [collisionTimer, setCollisionTimer] = useState<NodeJS.Timeout | null>(null);
     
 
     function handleClick(){
@@ -41,14 +46,43 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
 
 
-    
+    // // Function to handle the start of the collision
+    // function handleCollisionStart() {
+    //     setCollisionTimer(
+    //       setTimeout(() => {
+    //         console.log("Longer collision detected");
+      
+    //         const isDarkmode = sessionStorage.getItem("darkmode") === "true";
+      
+    //         sessionStorage.setItem("darkmode", `${!isDarkmode}`);
+    //       }, 1000)
+    //     );
+    // }
+      
 
-    
+    // // Function to handle the end of the collision
+    // function handleCollisionEnd() {
+    //     if (collisionTimer) {
+    //     clearTimeout(collisionTimer); // Clear the timer when the collision ends
+    //     setCollisionTimer(null);
+    //     }
+    // }
+
+    // // Clear the timer when the component unmounts
+    // useEffect(() => {
+    //     return () => {
+    //       if (collisionTimer) {
+    //         clearTimeout(collisionTimer); 
+    //       }
+    //     };
+    //   }, [collisionTimer]);
 
     return (
         <RigidBody 
             colliders={"hull"} 
             type="fixed"
+            // onCollisionEnter={handleCollisionStart}
+            // onCollisionExit={handleCollisionEnd}
         >
             <mesh
                 name="Blanket"
@@ -157,9 +191,37 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                                     null}
                                 </button>
 
-                                <button className="w-12 h-12 bg-rose-400 block rounded-full"></button>
+                                <button 
+                                    className="w-12 h-12 bg-rose-400 block rounded-full"
+                                    onClick={()=> handleColorChange(colors.pink)}>
 
-                                <button className="color block"></button>
+                                    {selectedColor === colors.pink ? 
+                                    <i className="fa-solid fa-check text-lg"></i> : 
+                                    null}
+
+                                </button>
+
+                                <button 
+                                    className="w-12 h-12 bg-emerald-300 block rounded-full"
+                                    onClick={()=> handleColorChange(colors.green)}>
+
+                                    {selectedColor === colors.green ? 
+                                    <i className="fa-solid fa-check text-lg"></i> : 
+                                    null}
+
+                                </button>    
+
+
+                                <button 
+                                    className="w-12 h-12 bg-cyan-300 block rounded-full"
+                                    onClick={()=> handleColorChange(colors.blue)}>
+
+                                    {selectedColor === colors.blue ? 
+                                    <i className="fa-solid fa-check text-lg"></i> : 
+                                    null}
+
+                                </button> 
+
 
                                 <button className="color block"></button>
                             </div>

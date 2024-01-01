@@ -1,7 +1,11 @@
 import { RigidBody } from "@react-three/rapier";
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-export function DrawerInside({geometry, materials, handleClick, position, name} :any) {
+import { useSpring, animated } from '@react-spring/three';
+import { to } from '@react-spring/three';
+
+
+export function DrawerInside({geometry, materials, handleClick, isActive, name} :any) {
     // geometry nodes object {
     //     mesh1: 
     //     mesh2: 
@@ -11,13 +15,17 @@ export function DrawerInside({geometry, materials, handleClick, position, name} 
     //     mesh1: 
     //     mesh2: 
     // }
+    const { position } = useSpring({ position: isActive ? [0, 0, -0.25] : [0, 0, 0] });
+
+    const animatedPosition = to(position, (x, y, z) => [x, y, z]);
+
 
     return ( 
         <RigidBody colliders="hull" type="fixed">
-            <group 
+            <animated.group 
                 name={name}
                 onClick={handleClick}
-                position={position}
+                position={animatedPosition}
                 onPointerEnter={cursorActiveHandler}
                 onPointerLeave={cursorInactiveHandler}
                 onPointerOut={cursorInactiveHandler}
@@ -39,7 +47,7 @@ export function DrawerInside({geometry, materials, handleClick, position, name} 
                     material={materials.mesh2}
                     onClick={handleClick}
                 />
-            </group>
+            </animated.group>
         </RigidBody>
         
     );

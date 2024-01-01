@@ -74,7 +74,7 @@ export function AlarmClock({nodes, materials, timeString} :any) {
                 font=""
                 name="Time_alarm_clock"  
                 material={materials.Clock_bloom_effect}
-                position={[2.765, 0.96, -2.855]}
+                position={[2.765, 0.96, -2.86]}
                 rotation={[-Math.PI / 2, -1.3, -Math.PI / 2]}
             >
                 {timeString}

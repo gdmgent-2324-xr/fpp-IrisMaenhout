@@ -5,7 +5,9 @@ import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
 
+
 import DrawerInside from "./DrawerInside";
+
 
 export function Drawer({nodes, materials} :any) {
 
@@ -37,7 +39,7 @@ export function Drawer({nodes, materials} :any) {
            
             <DrawerInside 
                 name={"drawer1"}
-                position={drawersOut.drawer1 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                isActive={drawersOut.drawer1}
                 geometry={{
                     mesh1: nodes.Cube070.geometry,
                     mesh2: nodes.Cube070_1.geometry
@@ -57,7 +59,7 @@ export function Drawer({nodes, materials} :any) {
 
             <DrawerInside 
                 name={"drawer2"}
-                position={drawersOut.drawer2 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                isActive={drawersOut.drawer2}
                 geometry={{
                     mesh1: nodes.Cube076.geometry,
                     mesh2: nodes.Cube076_1.geometry
@@ -77,7 +79,7 @@ export function Drawer({nodes, materials} :any) {
 
             <DrawerInside 
                 name={"drawer3"}
-                position={drawersOut.drawer3 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                isActive={drawersOut.drawer3}
                 geometry={{
                     mesh1: nodes.Cube075.geometry,
                     mesh2: nodes.Cube075_1.geometry

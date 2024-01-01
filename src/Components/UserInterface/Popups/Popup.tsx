@@ -19,17 +19,17 @@ const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode 
         threshold: 0.8, // Percentage of the element that must be visible to trigger the callback
       };
 
-      let i = 0;
+      // let i = 0;
       const observer = new IntersectionObserver(([entry]) => {
-        i++;
-        console.log(i, "i");
-        if(i >= 2){
+        // i++;
+        // console.log(i, "i");
+        // if(i >= 1){
           if(sessionStorage.getItem("isPointerLockActive")){
             sessionStorage.removeItem("isPointerLockActive");
           }
           sessionStorage.setItem("isPointerLockActive", "false");
           console.log("Visible");
-        }
+        // }
         // setIsVisible(entry.isIntersecting);
         
       }, options);
@@ -67,8 +67,11 @@ const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode 
             
 
             </div>
-            
-          {children}
+
+            {children}
+
+            <i className='mt-12 block'>* Press <b className={`underline ${isDarkmode ? 'decoration-violet-400' : 'decoration-pink-700'} px-1`}>esc</b> to be able to click on this popup</i>
+
         </div>
       </div>
     );
