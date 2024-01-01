@@ -2,6 +2,8 @@ import { Text, Text3D, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import React, { useRef } from "react";
 
+// import font from "./digitalClockFont/digital_clock_font.json";
+
 
 // import clockFont from "./digitalClockFont/digital_clock_font.json";
 
@@ -67,17 +69,19 @@ export function AlarmClock({nodes, materials, timeString} :any) {
                 HELLO R3F
             </Text3D> */}
 
-            {/* <Text 
+            <Text 
                 // fontSize={0.08}
                 scale={0.055}
-                font="public/fonts/DigitalClock.ttf"
+                font=""
                 name="Time_alarm_clock"  
                 material={materials.Clock_bloom_effect}
-                position={[0.11, 0.75, -0.02]}
-                rotation={[-Math.PI / 2, -0.212, -Math.PI / 2]}
+                position={[2.765, 0.96, -2.855]}
+                rotation={[-Math.PI / 2, -1.3, -Math.PI / 2]}
             >
                 {timeString}
-            </Text> */}
+            </Text>
+
+
 
            
                 
