@@ -29,8 +29,6 @@ const PhysicsRapierWorld = () => {
     return `${formattedHour}:${formattedMinute}`;
   };
 
-
-
   
 
   useEffect(() => {
@@ -63,10 +61,13 @@ const PhysicsRapierWorld = () => {
           today: new Date()
         }
       ));
-    }, 60000); // 60000 milliseconds = 1 minute
+    }, 30000); // 1/2 minute
 
     return () => clearInterval(interval); // Cleanup the interval on component unmount
   }, [timeSettings.today]);
+
+
+  
 
 
   

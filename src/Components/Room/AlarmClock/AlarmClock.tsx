@@ -14,7 +14,6 @@ import { RigidBody } from "@react-three/rapier";
 export function AlarmClock({nodes, materials, timeString} :any) {
 
 
-
     return (
         <RigidBody colliders="hull" type="fixed">
             <group

@@ -12,6 +12,9 @@ import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
  * @returns {React.JSX.Element}
  */
 const PhysicsRapierWorldPage = (props: GroupProps): React.JSX.Element => {
+
+  // Clear sesion storage on page reload
+  sessionStorage.clear();
   return (
     <>
 

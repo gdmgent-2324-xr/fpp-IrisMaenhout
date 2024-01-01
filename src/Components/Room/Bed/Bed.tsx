@@ -1,6 +1,6 @@
 import { Billboard, Html, Text, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
@@ -21,7 +21,6 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
     const [selectedColor, setSelectedColor] = useState(colors.yellow);
     const [showPopup, setShowPopup] = useState(false);
-    // const [showPopup, setShowPopup] = useState(false);
     
 
     function handleClick(){
@@ -34,16 +33,23 @@ export function Bed({nodes, materials, isDarkMode} :any) {
             sessionStorage.removeItem("isPointerLockActive");
         }
 
-        console.log("moet weer normaal zijn")
-
         setSelectedColor(color);
         setShowPopup(false); // Close the popup after color selection
 
         setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
     }
 
+
+
+    
+
+    
+
     return (
-        <RigidBody colliders={"hull"} type="fixed">
+        <RigidBody 
+            colliders={"hull"} 
+            type="fixed"
+        >
             <mesh
                 name="Blanket"
                 castShadow

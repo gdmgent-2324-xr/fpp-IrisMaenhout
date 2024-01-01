@@ -8,7 +8,7 @@ import { RigidBody } from "@react-three/rapier";
 export function Nintendo({nodes, materials} :any) {
 
     return (
-        <RigidBody colliders="cuboid">
+        <RigidBody colliders="cuboid" type="fixed">
             <group name="Nitendo">
                 <mesh
                     name="Cube096"

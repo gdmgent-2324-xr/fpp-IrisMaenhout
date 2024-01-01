@@ -1,71 +1,99 @@
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
-import ContactCard from "../ContactCard/ContactCard";
+
+import DrawerInside from "./DrawerInside";
 
 export function Drawer({nodes, materials} :any) {
 
+    type DrawersState = {
+        drawer1: boolean;
+        drawer2: boolean;
+        drawer3: boolean;
+    };
+    
+    const [drawersOut, setDrawersOut] = useState<DrawersState>({
+        drawer1: false,
+        drawer2: false,
+        drawer3: false
+    });
+    
+
+    function handleClick(drawer: keyof DrawersState) {
+        setDrawersOut(prevState => (
+        {
+            ...prevState,
+            [drawer]: !prevState[drawer]
+        }));
+    }
+      
+    
+
     return (
-        <>
-            <RigidBody colliders="hull" type="fixed">
-                <group name="Lade1">
-                    <mesh
-                        name="Cube070"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube070.geometry}
-                        material={materials.Mat_white}
-                    />
-                    <mesh
-                        name="Cube070_1"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube070_1.geometry}
-                        material={materials.See_through_white}
-                    />
-                </group>
-            </RigidBody>
+        <>  
+           
+            <DrawerInside 
+                name={"drawer1"}
+                position={drawersOut.drawer1 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                geometry={{
+                    mesh1: nodes.Cube070.geometry,
+                    mesh2: nodes.Cube070_1.geometry
+                }}
 
-            <RigidBody colliders="hull" type="fixed">
-                <group name="Lade2">
-                    <mesh
-                        name="Cube076"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube076.geometry}
-                        material={materials.Mat_white}
-                    />
-                    <mesh
-                        name="Cube076_1"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube076_1.geometry}
-                        material={materials.See_through_white}
-                    />
-                </group>
-            </RigidBody>
+                materials={{
+                    mesh1: materials.Mat_white,
+                    mesh2: materials.See_through_white
+                }}
 
-            <RigidBody colliders="hull" type="fixed">
-                <group name="Lade3">
-                    <mesh
-                        name="Cube075"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube075.geometry}
-                        material={materials.Mat_white}
-                    />
-                    <mesh
-                        name="Cube075_1"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Cube075_1.geometry}
-                        material={materials.See_through_white}
-                    />
-                </group>
-            </RigidBody>
+                handleClick={
+                    ()=> handleClick("drawer1")
+                }
+                
+            />
+
+
+            <DrawerInside 
+                name={"drawer2"}
+                position={drawersOut.drawer2 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                geometry={{
+                    mesh1: nodes.Cube076.geometry,
+                    mesh2: nodes.Cube076_1.geometry
+                }}
+
+                materials={{
+                    mesh1: materials.Mat_white,
+                    mesh2: materials.See_through_white
+                }}
+
+                handleClick={
+                    ()=> handleClick("drawer2")
+                }
+                
+            />
+
+
+            <DrawerInside 
+                name={"drawer3"}
+                position={drawersOut.drawer3 ? [0 ,0 , -0.25] : [0, 0 , 0]}
+                geometry={{
+                    mesh1: nodes.Cube075.geometry,
+                    mesh2: nodes.Cube075_1.geometry
+                }}
+
+                materials={{
+                    mesh1: materials.Mat_white,
+                    mesh2: materials.See_through_white
+                }}
+
+                handleClick={
+                    ()=> handleClick("drawer3")
+                }
+                
+            />
+            
 
             <RigidBody colliders="hull" type="fixed">
                 <mesh
@@ -74,7 +102,7 @@ export function Drawer({nodes, materials} :any) {
                     receiveShadow
                     geometry={nodes.Drawer.geometry}
                     material={materials.Mat_white}
-                >
+                />
                     {/* <mesh
                         name="Buisness_card"
                         castShadow
@@ -82,8 +110,8 @@ export function Drawer({nodes, materials} :any) {
                         geometry={nodes.Buisness_card.geometry}
                         material={materials.Buisness_card}
                     /> */}
-                    <ContactCard nodes={nodes} materials={materials}/>
-                </mesh>
+                    {/* <ContactCard nodes={nodes} materials={materials}/> */}
+                {/* </mesh> */}
             </RigidBody>
 
             <RigidBody colliders="cuboid" type="fixed">
