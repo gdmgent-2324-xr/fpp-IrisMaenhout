@@ -7,12 +7,11 @@ import { RigidBody } from "@react-three/rapier";
 import Popup from "Components/UserInterface/Popups/Popup";
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-
+import { useSpring, animated } from '@react-spring/three';
+import { useSpring as useSpringWeb} from '@react-spring/web';
 
 
 export function Bed({nodes, materials, isDarkMode} :any) {
-    
-
 
     const colors = {
         yellow: "#f7d96a",
@@ -26,7 +25,15 @@ export function Bed({nodes, materials, isDarkMode} :any) {
     const [showPopup, setShowPopup] = useState(false);
     
     // const [collisionTimer, setCollisionTimer] = useState<NodeJS.Timeout | null>(null);
-    
+
+    // ________________ ANIMATIONS ___________________
+    const {colorAnimated} = useSpring({ colorAnimated:  selectedColor});
+
+    const popupAnimation = useSpringWeb({
+        opacity: showPopup ? 1 : 0,
+        transform: showPopup ? 'scale(1)' : 'scale(1.1)',
+        config: { duration: 300 }
+    });
 
     function handleClick(){
         // Open popup with choices for different colors
@@ -90,11 +97,11 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                 receiveShadow
                 geometry={nodes.Bed.geometry}
                 // material={materials.Yellow}
-                material={
-                    new THREE.MeshStandardMaterial({
-                        color: selectedColor
-                    })
-                }
+                // material={
+                //     new THREE.MeshStandardMaterial({
+                //         color: selectedColor
+                //     })
+                // }
                 position={[1.132, 0.676, -1.789]}
                 rotation={[Math.PI / 2, Math.PI / 2, 0]}
                 scale={[-1.684, -1.096, -0.576]}
@@ -104,6 +111,7 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                 onPointerOut={cursorInactiveHandler}
                 onPointerOver={cursorActiveHandler}
                 >
+                    <animated.meshStandardMaterial color={colorAnimated}/>
                 
                 <group
                     name="Bedframe"
@@ -169,7 +177,8 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                     
                     <Html
                     >
-                        <Popup 
+                        <Popup
+                        styleAnimated={popupAnimation} 
                         title="Kies een kleur voor de bedovertrek:"
                         isDarkmode={isDarkMode} 
                         handleClose={()=> {
@@ -222,8 +231,6 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
                                 </button> 
 
-
-                                <button className="color block"></button>
                             </div>
                         </Popup>
                     </Html>

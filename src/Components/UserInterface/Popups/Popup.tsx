@@ -1,57 +1,23 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { animated } from '@react-spring/web';
+import { usePopupHelper } from 'Hooks/Helpers/usePopupHelper';
 
 type PopupProps = {
   title: string;
   children: ReactNode;
   handleClose: VoidFunction;
   isDarkmode: boolean;
+  styleAnimated: any;
 };
 
-const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode }) => {
+const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode, styleAnimated }) => {
     const popupRef = useRef<HTMLDivElement>(null);
-
-    // const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-      const options = {
-        root: null, // Use the viewport as the root
-        rootMargin: '0px', // Margin around the root. Increase to detect visibility before or after entering the viewport
-        threshold: 0.8, // Percentage of the element that must be visible to trigger the callback
-      };
-
-      // let i = 0;
-      const observer = new IntersectionObserver(([entry]) => {
-        // i++;
-        // console.log(i, "i");
-        // if(i >= 1){
-          if(sessionStorage.getItem("isPointerLockActive")){
-            sessionStorage.removeItem("isPointerLockActive");
-          }
-          sessionStorage.setItem("isPointerLockActive", "false");
-          console.log("Visible");
-        // }
-        // setIsVisible(entry.isIntersecting);
-        
-      }, options);
-
-      if (popupRef.current) {
-        observer.observe(popupRef.current);
-      }
-
-
-      // console.log(isVisible);
-
-      return () => {
-        if (popupRef.current) {
-          observer.unobserve(popupRef.current);
-        }
-      };
-
-    }, []);
-
+    usePopupHelper(popupRef);
 
     return (
-      <div className="w-full fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+      <animated.div 
+        style={styleAnimated}
+        className="w-full fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
 
         <div ref={popupRef} className={`p-8 rounded-lg shadow-lg min-w-70 outline outline-4 outline-offset-4 ${isDarkmode ? 'bg-black outline-black text-white' : 'bg-white outline-white text-black'}`}>
 
@@ -73,7 +39,7 @@ const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode 
             <i className='mt-12 block'>* Press <b className={`underline ${isDarkmode ? 'decoration-violet-400' : 'decoration-pink-700'} px-1`}>esc</b> to be able to click on this popup</i>
 
         </div>
-      </div>
+      </animated.div>
     );
 };
 

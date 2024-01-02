@@ -6,6 +6,7 @@ import { GLTF } from "three-stdlib";
 import { RigidBody } from "@react-three/rapier";
 import HoverPopup from "Components/UserInterface/Popups/HoverPopup";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useSpring as useSpringWeb} from '@react-spring/web';
 
 export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
@@ -26,7 +27,7 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
     }
 
-    const holdDuration = 2000;
+    const holdDuration = 1000;
 
     const [hoverPopupData, setHoverPopupData] = useState({
         isHovered: false,
@@ -45,6 +46,14 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
     const [progressBarPercentage, setProgressBarPercentage] = useState({
         prevPercentage : 0,
         currentPercentage: 0
+    });
+
+    // _______________ ANIMATIONS _______________
+
+    const popupAnimation = useSpringWeb({
+        opacity: hoverPopupData.isHovered ? 1 : 0,
+        transform: hoverPopupData.isHovered ? 'scale(1)' : 'scale(0.8)',
+        config: { duration: 200 }
     });
 
     useEffect(() => {
@@ -269,6 +278,7 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
             {hoverPopupData.isHovered && (
                 <Html position={[-2.999, 1.83, 1.65]}>
                 <HoverPopup
+                    styleAnimated={popupAnimation}
                     title={hoverPopupData.popupInfo.title}
                     text={hoverPopupData.popupInfo.text}
                     isDarkmode={isDarkMode}

@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import ChangingProgressProvider from "../../Helpers/ChangingProgressProvider";
+import { animated } from '@react-spring/web';
 
 type PopupProps = {
   title: string;
@@ -10,7 +11,7 @@ type PopupProps = {
   isDarkmode: boolean;
   currentProgessPercentage: number;
   previousProgessPercentage: number;
-
+  styleAnimated: any
 };
 
 type CustomStyles = {
@@ -18,11 +19,14 @@ type CustomStyles = {
   transition?: string;
 } & React.CSSProperties;
 
-const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProgessPercentage, previousProgessPercentage }) => {
+const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProgessPercentage, previousProgessPercentage, styleAnimated }) => {
     return (
       <div className="w-full fixed top-0 left-0 w-full h-full flex items-center justify-center h-full">
 
-        <div className={`p-8 rounded-lg shadow-lg min-w-70 outline outline-4 outline-offset-4 ${isDarkmode ? 'bg-black/60 outline-black text-white' : 'bg-white/60 outline-white text-black'} min-w-72 mt-[20px] h-max-16 w-[80%] backdrop-blur-sm`}>
+        <animated.div 
+          style={styleAnimated}
+          className={`p-8 rounded-lg shadow-lg min-w-70 outline outline-4 outline-offset-4 ${isDarkmode ? 'bg-black/60 outline-black text-white' : 'bg-white/60 outline-white text-black'} min-w-72 mt-[20px] h-max-16 w-[80%] backdrop-blur-sm`}
+        >
           
           <h2 className='mb-8 font-bold'>{title}</h2>
             
@@ -73,7 +77,7 @@ const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProg
 
           </div>
           
-        </div>
+        </animated.div>
       </div>
     );
 };

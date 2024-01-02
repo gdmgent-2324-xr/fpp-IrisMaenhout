@@ -1,58 +1,21 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
+import { animated } from '@react-spring/web';
 
 
 import bgImgCard from "./images/Bg_buisnessCard.jpg";
+import { usePopupHelper } from 'Hooks/Helpers/usePopupHelper';
 
 type PopupProps = {
   handleClose: VoidFunction;
   isDarkmode: boolean;
+  styleAnimated: any
 };
 
 
-
-
-const ContactCardPopup : React.FC<PopupProps> = ({ handleClose, isDarkmode }) => {
+const ContactCardPopup : React.FC<PopupProps> = ({ handleClose, isDarkmode, styleAnimated }) => {
 
     const popupRef = useRef<HTMLDivElement>(null);
-
-    // const [isVisible, setIsVisible] = useState(false);
-
-    useEffect(() => {
-      const options = {
-        root: null, // Use the viewport as the root
-        rootMargin: '0px', // Margin around the root. Increase to detect visibility before or after entering the viewport
-        threshold: 0.8, // Percentage of the element that must be visible to trigger the callback
-      };
-
-      // let i = 0;
-      const observer = new IntersectionObserver(([entry]) => {
-        // i++;
-        // console.log(i, "i");
-        // if(i >= 2){
-          if(sessionStorage.getItem("isPointerLockActive")){
-            sessionStorage.removeItem("isPointerLockActive");
-          }
-          sessionStorage.setItem("isPointerLockActive", "false");
-          console.log("Visible");
-        // }
-        // setIsVisible(entry.isIntersecting);
-        
-      }, options);
-
-      if (popupRef.current) {
-        observer.observe(popupRef.current);
-      }
-
-
-      // console.log(isVisible);
-
-      return () => {
-        if (popupRef.current) {
-          observer.unobserve(popupRef.current);
-        }
-      };
-
-    }, []);
+    usePopupHelper(popupRef);
 
     return (
         <div className="absolute w-full h-full top-0 left-0 items-center justify-center z-20 flex">
@@ -63,13 +26,13 @@ const ContactCardPopup : React.FC<PopupProps> = ({ handleClose, isDarkmode }) =>
         <div className="z-40">
 
           {/* Close btn */}
-          <button onClick={handleClose} className={`flex justify-between ${isDarkmode ? "bg-[#000000BB] text-white" : "bg-[#ffffffBB] text-black"} rounded-xl px-6 py-4 mb-6 w-1/3 items-center cursor-pointer mx-auto backdrop-blur-sm`}>
+          <animated.button onClick={handleClose} className={`flex justify-between ${isDarkmode ? "bg-[#000000BB] text-white" : "bg-[#ffffffBB] text-black"} rounded-xl px-6 py-4 mb-6 w-1/3 items-center cursor-pointer mx-auto backdrop-blur-sm`} style={styleAnimated}>
             <p>Close</p>
             <i className="fa-solid fa-xmark"></i>
-          </button>
+          </animated.button>
 
           {/* Contact card */}
-          <div ref={popupRef} className={`bg-[url(${bgImgCard})] bg-center bg-cover p-10 outline outline-3 outline-offset-[-12px] outline-[#7C4B81] rounded flex justify-between gap-12 min-w-max`}>
+          <animated.div ref={popupRef} style={styleAnimated} className={`bg-[url(${bgImgCard})] bg-center bg-cover p-10 outline outline-3 outline-offset-[-12px] outline-[#7C4B81] rounded flex justify-between gap-12 min-w-max`}>
 
             {/* Personal info */}
             <div className="text-gray-600">
@@ -117,7 +80,7 @@ const ContactCardPopup : React.FC<PopupProps> = ({ handleClose, isDarkmode }) =>
                 </div>
               </div>
             </div>
-          </div>
+          </animated.div>
           
         </div>
 

@@ -2,6 +2,7 @@ import { Html, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import React, { useRef, useState } from "react";
 import { GLTF } from "three-stdlib";
+import { useSpring } from '@react-spring/web';
 
 import { RigidBody } from "@react-three/rapier";
 import ContactCardPopup from "Components/UserInterface/Popups/ContactCardPopup";
@@ -17,6 +18,12 @@ export function ContactCard({nodes, materials, isDarkMode} :any) {
         // Open popup with choices for different colors
         setShowPopup(true);
     }
+
+    const popupAnimation = useSpring({
+      opacity: showPopup ? 1 : 0,
+      transform: showPopup ? 'scale(1)' : 'scale(1.1)',
+      config: { duration: 300 }
+    });
 
     
 
@@ -49,6 +56,7 @@ export function ContactCard({nodes, materials, isDarkMode} :any) {
             showPopup && 
             <Html>
                <ContactCardPopup 
+                  styleAnimated={popupAnimation}
                   isDarkmode={isDarkMode} 
                   handleClose={()=> {
                       setShowPopup(false);
