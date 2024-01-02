@@ -124,7 +124,7 @@ export function MainLamp({nodes, materials} :any) {
 
             {lightIsTurnedOn && 
 
-                <group name="light">
+                <group name="light" visible={lightIsTurnedOn}>
                 <directionalLight
                         name="Light_inside"
                         color={"#FFA154"}

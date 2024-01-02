@@ -21,22 +21,19 @@ const Pages = (): JSX.Element => {
         element={<Navigate to={homePath} />}
         path={rootPath}
       />
-      <Route //
-        element={<ClockPage />}
-        path={NAVIGATION.PATH.CLOCK}
-      />
+    
       <Route //
         element={<PhysicsRapierWorldPage />}
         path={NAVIGATION.PATH.PHYSICS_RAPIER_WORLD}
       />
-      <Route //
+      {/* <Route //
         element={<PhysicsRapierXrArPage />}
         path={NAVIGATION.PATH.PHYSICS_RAPIER_XR_AR}
       />
       <Route //
         element={<PhysicsRapierXrVrPage />}
         path={NAVIGATION.PATH.PHYSICS_RAPIER_XR_VR}
-      />
+      /> */}
     </Routes>
   );
 };

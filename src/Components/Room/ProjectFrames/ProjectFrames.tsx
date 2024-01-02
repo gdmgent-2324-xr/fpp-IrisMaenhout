@@ -7,6 +7,7 @@ import { RigidBody } from "@react-three/rapier";
 import HoverPopup from "Components/UserInterface/Popups/HoverPopup";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useSpring as useSpringWeb} from '@react-spring/web';
+import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
 export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
@@ -168,9 +169,12 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                     // onClick={()=> openProject("https://ntriga.be/")}
                     onPointerOver={()=> handleOnHover(projectInfo.internship.title, projectInfo.internship.text)}
                     onPointerOut={handleNotOnHover}
-
+                    
                     onPointerDown={handleMouseDown}
                     onPointerUp={()=> openProject("https://ntriga.be/")}
+
+                    onPointerEnter={cursorActiveHandler}
+                    onPointerLeave={cursorInactiveHandler}
                     >
                     <mesh
                         name="Plane004"
@@ -201,6 +205,9 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
                 onPointerDown={handleMouseDown}
                 onPointerUp={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
+
+                onPointerEnter={cursorActiveHandler}
+                onPointerLeave={cursorInactiveHandler}
                 >
                 <mesh
                     name="Plane008"
@@ -231,6 +238,10 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
                 onPointerDown={handleMouseDown}
                 onPointerUp={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
+
+                onPointerEnter={cursorActiveHandler}
+                onPointerLeave={cursorInactiveHandler}
+                
                 >
                 <mesh
                     name="Plane023"
@@ -276,7 +287,7 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
             {/* Display the popup based on hover */}
             {hoverPopupData.isHovered && (
-                <Html position={[-2.999, 1.83, 1.65]}>
+                <Html position={[-8, 2, 0]}>
                 <HoverPopup
                     styleAnimated={popupAnimation}
                     title={hoverPopupData.popupInfo.title}

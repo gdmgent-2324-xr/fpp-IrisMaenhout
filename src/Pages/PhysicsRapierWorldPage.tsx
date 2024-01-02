@@ -2,7 +2,9 @@ import { GroupProps } from "@react-three/fiber";
 
 import { World } from "Components/Physics/Rapier/World";
 import ContactCardPopup from "Components/UserInterface/Popups/ContactCardPopup";
+import Popup from "Components/UserInterface/Popups/Popup";
 import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
+import { useState } from "react";
 
 
 /**
@@ -14,16 +16,13 @@ import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
 const PhysicsRapierWorldPage = (props: GroupProps): React.JSX.Element => {
 
   // Clear sesion storage on page reload
-  // sessionStorage.clear();
-  return (
-    <>
+  sessionStorage.clear();
 
-      {/* <ContactCardPopup/> */}
-      
-      <Layout>
-        <World {...props} />
-      </Layout>
-    </>
+
+  return (
+    <Layout>
+      <World {...props} />
+    </Layout>
     
   );
 };

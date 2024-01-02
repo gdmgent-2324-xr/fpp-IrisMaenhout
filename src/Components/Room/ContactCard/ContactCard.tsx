@@ -21,7 +21,7 @@ export function ContactCard({nodes, materials, isDarkMode} :any) {
 
     const popupAnimation = useSpring({
       opacity: showPopup ? 1 : 0,
-      transform: showPopup ? 'scale(1)' : 'scale(1.1)',
+      transform: showPopup ? 'scale(1)' : 'scale(0.5)',
       config: { duration: 300 }
     });
 

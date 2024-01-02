@@ -31,7 +31,7 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
     const popupAnimation = useSpringWeb({
         opacity: showPopup ? 1 : 0,
-        transform: showPopup ? 'scale(1)' : 'scale(1.1)',
+        transform: showPopup ? 'scale(1)' : 'scale(0.5)',
         config: { duration: 300 }
     });
 
@@ -184,7 +184,7 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                         handleClose={()=> {
                             setShowPopup(false);
                             setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);}}>
-                            <div className="flex gap-8">
+                            <div className="flex gap-8 mt-8">
                                 <button className="w-12 h-12 bg-amber-300 block rounded-full"
                                 onClick={()=> handleColorChange(colors.yellow)}>
                                     {selectedColor === colors.yellow ? 
