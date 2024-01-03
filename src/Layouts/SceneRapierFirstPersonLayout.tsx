@@ -78,11 +78,11 @@ const SceneRapierFirstPersonLayout = ({
       >
         <Suspense>
           <Helpers />
-          <Lighting />
+          {/* <Lighting /> */}
           <KeyboardControls map={KEYBINDINGS.UNIVERSAL}>
             <Physics
               colliders={undefined}
-              // debug={physicsControls.showDebug}
+              // debug={true}
               gravity={[0.00, -9.81, 0.00]}
               paused={false}
               timeStep="vary"
