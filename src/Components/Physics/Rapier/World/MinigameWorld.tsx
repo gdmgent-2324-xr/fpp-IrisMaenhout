@@ -14,6 +14,8 @@ import { Ocean } from "Components/MiniGame/Ocean/Ocean";
 
 const MiniGameWorld = () => {
 
+    const enviromentHDRI = ["dawn", "night"];
+
   return (
     <group name="Rapier World">
       {/* <Floor />
