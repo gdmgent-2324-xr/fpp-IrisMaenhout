@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import floorModel from "./color_switch_floor.glb";
-import { RigidBody } from "@react-three/rapier";
+import { CollisionEnterPayload, RigidBody } from "@react-three/rapier";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -145,63 +145,38 @@ export function MiniGameFloor(props: JSX.IntrinsicElements["group"]) {
   }, []);
 
 
-  // useEffect(() => {
-  //   if (gameSettings.resetTilesPosition) {
-  //     resetTilesPosition();
-  //     setTimeout(() => {
-  //       setGameSettings((prevGameSettings) => ({
-  //         ...prevGameSettings,
-  //         resetTilesPosition: false,
-  //       }));
-  //     }, 500); // Reset after 0.5 seconds
-  //   }
-  // }, [gameSettings.resetTilesPosition]);
 
-  // useEffect(() => {
-  //   // Update tile positions when selectedColor changes
-  //   for (const color in tileGroups) {
-  //     if (color !== selectedColor) {
-  //       tileGroups[color].forEach((tile) => {
-  //         tile.position.y -= 0.1; // Adjust the falling speed
-  //       });
-  //     }
-  //   }
-  // }, [selectedColor, tileGroups]);
+  // Function to check if player survived after a collision
+  function checkIfPlayerSurvived(event: CollisionEnterPayload): void {
+    if(gameSettings.randomColorTiles !== ""){
+      const userData = event.target.rigidBody?.userData;
+      // Check the collided object or body to identify the name
+      if (userData && typeof userData === 'object' && 'name' in userData) {
+        const collidedObjectColor = userData.name;
+        if (collidedObjectColor === gameSettings.randomColorTiles) {
+          // Player survived this round
+          console.log("Survived round");
+        } else {
+          // Player didn't survive
+          console.log("game over");
+        }
+      }
+    }
   
-
-  // const handleTileFalling = () => {
-  //   for (const color in tileGroups) {
-  //     if (Object.prototype.hasOwnProperty.call(tileGroups, color)) {
-  //       if (color !== selectedColor) {
-  //         tileGroups[color].forEach((tile: THREE.Mesh) => {
-  //           tile.position.y -= 0.1; // Adjust the falling speed
-  //         });
-  //       }
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleTileFalling();
-  // }, [selectedColor]);
-
-  // useEffect(()=>{
-  //   setSelectedColor(colors[selectedColorIndex])
-  // }, []);
-
-
-
+  }
 
 
   return (
     <group {...props} dispose={null} scale={2.5}>
       {Object.entries(tileGroups).map(([color, tiles], index) => (
         <RigidBody 
+          userData={{ name: color }}
           key={index} 
           colliders="cuboid" 
           type="fixed" 
           canSleep={false} 
           position={gameSettings.randomColorTiles === color || gameSettings.randomColorTiles === "" ? [0, 0, 0] : [0, -8, 0]}
+          onCollisionEnter={checkIfPlayerSurvived}
         >
           {tiles.map((tile, idx) => (
             <mesh
