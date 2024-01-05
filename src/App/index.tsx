@@ -8,7 +8,7 @@ import "Styles/main.css";
 const App = (): JSX.Element => {
   return (
     <Router>
-      <Navigation />
+      {/* <Navigation /> */}
       <Pages />
     </Router>
   );
