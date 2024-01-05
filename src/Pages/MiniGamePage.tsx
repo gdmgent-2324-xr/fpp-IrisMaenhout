@@ -1,5 +1,7 @@
+import { useSpring } from "@react-spring/web";
 import { GroupProps } from "@react-three/fiber";
 import { MiniGameWorld } from "Components/Physics/Rapier/World/MinigameWorld";
+import InstructionsMiniGame from "Components/UserInterface/Popups/InstructionsMiniGame";
 import Scoreboard from "Components/UserInterface/ScoreBoard/ScoreBoard";
 
 import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
@@ -28,6 +30,9 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     const storedColor = sessionStorage.getItem("randomColor");
     return storedColor ? storedColor : "";
   });
+
+  const [popupVisible, setPopupVisible] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
 
 
   // _______ Update current score ___________
@@ -64,6 +69,19 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     });
   }, [currentScore]);
 
+  function closeInstructions(){
+    setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
+    setPopupVisible(false);
+    setGameStarted(true);
+  }
+
+
+  const popupAnimation = useSpring({
+    opacity: popupVisible ? 1 : 0,
+    transform: popupVisible ? 'scale(1)' : 'scale(0.5)',
+    config: { duration: 300 }
+});
+
   
 
   console.log(highscore);
@@ -80,7 +98,7 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
       color !== "" &&
       (
         <div className="z-10 absolute top-0 left-0 w-full flex justify-center mt-8">
-          <div className={`bg-${color}-300 rounded-md  py-4 px-8 border-4 border-white`}>
+          <div className={`bg-${color}-400 rounded-md  py-4 px-8 border-4 border-white`}>
             <h3 className="font-bold text-lg text-white">{color.charAt(0).toUpperCase() + color.slice(1)}</h3>
           </div>
 
@@ -88,10 +106,20 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
         
       )
     }
+
+    {
+      popupVisible && (
+        <>
+          <div className="absolute bg-black w-full h-full top-0 left-0 z-10 backdrop-blur-md opacity-90"></div>
+          <InstructionsMiniGame handleClose={closeInstructions} styleAnimated={popupAnimation}/>
+        </>
+      )
+    }
+    
     
     
     <Layout>
-      <MiniGameWorld />
+      <MiniGameWorld gameStarted={gameStarted}/>
     </Layout>
     </>
     

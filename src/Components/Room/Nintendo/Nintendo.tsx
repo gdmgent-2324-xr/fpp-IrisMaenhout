@@ -4,12 +4,28 @@ import React, { useRef } from "react";
 import { GLTF } from "three-stdlib";
 
 import { RigidBody } from "@react-three/rapier";
+import { useNavigate } from "react-router-dom";
+import { NAVIGATION } from "Configs/navigation";
+import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
 export function Nintendo({nodes, materials} :any) {
+    const navigate = useNavigate();
 
+    const handleClick = () => {
+        setTimeout(()=>{
+            navigate('../' + NAVIGATION.PATH.MINIGAME);
+        }, 500);
+    }
     return (
         <RigidBody colliders="cuboid" type="fixed">
-            <group name="Nitendo">
+            <group 
+                name="Nintendo" 
+                onClick={handleClick} 
+                onPointerEnter={cursorActiveHandler}
+                onPointerLeave={cursorInactiveHandler}
+                onPointerOut={cursorInactiveHandler}
+                onPointerOver={cursorActiveHandler}
+            >
                 <mesh
                     name="Cube096"
                     castShadow

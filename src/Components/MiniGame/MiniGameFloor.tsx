@@ -50,7 +50,11 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function MiniGameFloor(props: JSX.IntrinsicElements["group"]) {
+type props = {
+  gameStarted: boolean;
+};
+
+export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
   const { nodes, materials } = useGLTF(floorModel) as GLTFResult;
 
   const colors = ["green", "white", "pink", "red", "blue", "orange", "yellow", "purple"];
@@ -256,7 +260,7 @@ export function MiniGameFloor(props: JSX.IntrinsicElements["group"]) {
 
 
   return (
-    <group {...props} dispose={null} scale={2.5}>
+    <group dispose={null} scale={2.5}>
       {Object.entries(tileGroups).map(([color, tiles], index) => (
         <RigidBody 
           userData={{ name: color }}

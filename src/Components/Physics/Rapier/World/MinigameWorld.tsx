@@ -11,8 +11,11 @@ import { MiniGameFloor } from "Components/MiniGame/MiniGameFloor";
 import { DirectionalLight } from "three";
 import { Ocean } from "Components/MiniGame/Ocean/Ocean";
 
+type props = {
+  gameStarted: boolean;
+}
 
-const MiniGameWorld = () => {
+const MiniGameWorld: React.FC<props> = ({ gameStarted }) => {
 
     const enviromentHDRI = ["dawn", "night"];
 
@@ -22,7 +25,7 @@ const MiniGameWorld = () => {
       <Obstacles /> */}
        {/* <SoftShadows samples={20} /> */}
       {/* <SoftShadows size={30} samples={18}/> */}
-      <MiniGameFloor />
+      <MiniGameFloor gameStarted={gameStarted}/>
       {/* <directionalLight color="red" position={[0, 0, 5]} /> */}
       {/* <Ocean /> */}
       <Player/>

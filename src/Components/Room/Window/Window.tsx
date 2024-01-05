@@ -26,7 +26,7 @@ export function Window({nodes, materials, darkMode} :any) {
                     />
 
                     <ambientLight 
-                        intensity={darkMode ? 1 : 2.5}
+                        intensity={darkMode ? 1.8 : 2.5}
                         color={darkMode ? "#203454" : "#d6a783"}
                     />
 
