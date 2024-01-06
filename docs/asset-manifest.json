@@ -1,12 +1,17 @@
 {
   "files": {
-    "main.css": "/fpp-%C2%ABgithub-account-name%C2%BB/static/css/main.572dc706.css",
-    "main.js": "/fpp-%C2%ABgithub-account-name%C2%BB/static/js/main.a7bb1eed.js",
+    "main.css": "/fpp-%C2%ABgithub-account-name%C2%BB/static/css/main.f7fdbdcc.css",
+    "main.js": "/fpp-%C2%ABgithub-account-name%C2%BB/static/js/main.97eed3a9.js",
     "static/js/109.361bb7c6.chunk.js": "/fpp-%C2%ABgithub-account-name%C2%BB/static/js/109.361bb7c6.chunk.js",
+    "static/media/room_final.glb": "/fpp-%C2%ABgithub-account-name%C2%BB/static/media/room_final.8c8ca4b7a328de7e6697.glb",
+    "static/media/Lauv - Paris In The Rain.mp3": "/fpp-%C2%ABgithub-account-name%C2%BB/static/media/Lauv - Paris In The Rain.538c2e2d0f43eccaa017.mp3",
+    "static/media/keyboard-typing-shorter.mp3": "/fpp-%C2%ABgithub-account-name%C2%BB/static/media/keyboard-typing-shorter.e84a8e067e4a61523810.mp3",
+    "static/media/color_switch_floor.glb": "/fpp-%C2%ABgithub-account-name%C2%BB/static/media/color_switch_floor.31636c7642792dbc9e78.glb",
+    "static/media/Bg_buisnessCard.jpg": "/fpp-%C2%ABgithub-account-name%C2%BB/static/media/Bg_buisnessCard.a433ba870d47adbb61e2.jpg",
     "index.html": "/fpp-%C2%ABgithub-account-name%C2%BB/index.html"
   },
   "entrypoints": [
-    "static/css/main.572dc706.css",
-    "static/js/main.a7bb1eed.js"
+    "static/css/main.f7fdbdcc.css",
+    "static/js/main.97eed3a9.js"
   ]
 }
