@@ -60,6 +60,7 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
   const colors = ["green", "white", "pink", "red", "blue", "orange", "yellow", "purple"];
 
 
+ 
 
   const [gameSettings, setGameSettings] = useState({
     randomColorTiles: "",
@@ -67,10 +68,8 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
     // resetTilesPosition: false,
     timeOutFall: 2000,
     score: 1,
-    gameOver: false,
-    gameStarted: true
+    gameOver: false
   }); 
-
 
   const [highscore, setHighscore] =  useState<number>(() => {
     const storedHighscore = localStorage.getItem("highscore");
@@ -78,7 +77,6 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
   });
 
 
-  console.log(gameSettings.randomColorText);
 
   const tileGroups: { [color: string]: THREE.Mesh[] } = {
     green: [nodes.Cube, nodes.Cube007, nodes.Cube011, nodes.Cube026],
@@ -92,7 +90,6 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
     // Define other color groups similarly
   };
 
-  console.log(Object.entries(tileGroups));
 
   const getMaterialFromColor = (color: string): THREE.MeshStandardMaterial => {
     switch (color) {
@@ -119,11 +116,11 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
 
 
   useEffect(()=>{
-    console.log("Check if player survived");
+ 
     const timeout = setTimeout(()=>{
       if(gameSettings.gameOver === false && gameSettings.randomColorTiles !== ""){
-        console.log("survived :-)");
 
+        sessionStorage.setItem("gameOver", "false");
 
         setGameSettings(prev => (
           {
@@ -139,7 +136,6 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
           localStorage.setItem("highscore", `${gameSettings.score}`);
         }
 
-        console.log(gameSettings);
       }
     }, 2500);
 
@@ -150,18 +146,14 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
 
   useEffect(() => {
     
-
     const changeColorInterval = setInterval(() => {
-        console.log(gameSettings);
 
-        if(gameSettings.gameOver === false && gameSettings.gameStarted === true){
+        if(gameSettings.gameOver === false && gameStarted === true){
 
           const selectedColorIndex = Math.floor(Math.random() * colors.length);
           const selectedColor = colors[selectedColorIndex];
 
           sessionStorage.setItem("randomColor", selectedColor);
-
-          console.log(selectedColor);
 
           setGameSettings((prev) => ({
             ...prev,
@@ -189,11 +181,11 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
           
         }
 
-      }, 15000); // Change color every 30 seconds
+      }, 10000); // Change color every 30 seconds
 
     return () => clearInterval(changeColorInterval);
     
-  }, [gameSettings, colors]);
+  }, [gameSettings, colors, gameStarted]);
 
 
   // Function to check if player survived after a collision
@@ -202,10 +194,9 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
       const userData = event.target.rigidBody?.userData;
       // Check the collided object or body to identify the name
       if (!(userData && typeof userData === "object" && "name" in userData)) {
-        console.log("game over Invisible plate");
-
-
+ 
         sessionStorage.setItem("randomColor", "");
+        sessionStorage.setItem("gameOver", "true");
         
         setGameSettings(prev => (
           {
@@ -222,42 +213,6 @@ export const MiniGameFloor: React.FC<props> = ({ gameStarted }) => {
     }
   
   }
-  // function checkIfPlayerSurvived(event: CollisionEnterPayload): void {
-  //   if (gameSettings.randomColorTiles !== "") {
-  //     const userData = event.target.rigidBody?.userData;
-  //     // Check the collided object or body to identify the name
-  //     if (userData && typeof userData === "object" && "name" in userData) {
-  //       const collidedObjectColor = userData.name;
-  //       if (collidedObjectColor === gameSettings.randomColorTiles) {
-  //         // Player survived this round
-  //         console.log("Survived round");
-  //         setGameSettings(prev => (
-  //           {
-  //             ...prev,
-  //             score: prev.score + 1
-  //         }));
-  //         console.log(gameSettings);
-  //       } else {
-  //         // Player didn't survive
-  //         console.log("game over");
-  //         setGameSettings(prev => (
-  //           {
-  //             ...prev,
-  //             randomColorTiles: "",   
-  //             randomColorText: "",
-  //             gameOver: true
-  //           }
-  //         ))
-
-  //         console.log(gameSettings);
-  //       }
-  //     }else{
-  //       console.log("game over Invisible plate");
-  //     }
-  //   }
-  
-  // }
-
 
   return (
     <group dispose={null} scale={2.5}>

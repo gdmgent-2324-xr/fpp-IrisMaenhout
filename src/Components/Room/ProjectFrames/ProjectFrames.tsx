@@ -145,6 +145,7 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 text: text
             }
         });
+        
     }
 
     function handleNotOnHover(){

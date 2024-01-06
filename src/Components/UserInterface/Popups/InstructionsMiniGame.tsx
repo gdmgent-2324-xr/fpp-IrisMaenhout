@@ -15,7 +15,7 @@ const InstructionsMiniGame : React.FC<PopupProps> = ({ handleClose, styleAnimate
     return (
         
         <Popup 
-            title="Spelregels color switch" 
+            title="Color switch - mini game" 
             handleClose={handleClose} 
             isDarkmode={false} 
             styleAnimated={styleAnimated}
@@ -23,12 +23,11 @@ const InstructionsMiniGame : React.FC<PopupProps> = ({ handleClose, styleAnimate
 
             <div>
 
-
-                <p>Hallo, zin om een spelletje te spelen?</p>
+                <h4 className="text-md font-bold mb-6 mt-4">Spelregels</h4>
                 <p>De spelregels zijn simpel, ga op de juiste kleur staan voor de tegels naar beneden vallen en probeer zo lang mogelijk in leven te blijven.</p>
-                <b>Succes !!</b>
+                <p>Succes !!</p>
 
-                <h4 className="text-lg font-bold mb-6">Hoe moet ik bewegen?</h4>
+                <h4 className="text-md font-bold mb-6 mt-12">Hoe moet ik bewegen?</h4>
                 
                 <div className="grid grid-cols-2 gap-x-32 gap-y-6">
                     <div className="shortcut flex justify-between w-full gap-12">
@@ -72,7 +71,7 @@ const InstructionsMiniGame : React.FC<PopupProps> = ({ handleClose, styleAnimate
                     </div>
 
                     <div className="shortcut flex justify-between w-full">
-                        <p>Rennen <br/>(+ richtingstoets)</p>
+                        <p>Rennen</p>
                         <div className="flex gap-4">
                             <p className="bg-slate-100 px-4 border-2 border-slate-200">SHIFT</p>
                             <p>=</p>

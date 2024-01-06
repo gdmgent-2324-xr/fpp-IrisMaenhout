@@ -4,7 +4,7 @@ import { World } from "Components/Physics/Rapier/World";
 import ContactCardPopup from "Components/UserInterface/Popups/ContactCardPopup";
 import Popup from "Components/UserInterface/Popups/Popup";
 import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 /**
@@ -17,6 +17,11 @@ const PhysicsRapierWorldPage = (props: GroupProps): React.JSX.Element => {
 
   // Clear sesion storage on page reload
   sessionStorage.clear();
+
+  useEffect(()=>{
+    setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
+
+  }, []);
 
 
   return (
