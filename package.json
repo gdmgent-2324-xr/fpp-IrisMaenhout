@@ -2,7 +2,7 @@
   "name": "fpp-starter-code",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/fpp-«github-account-name»",
+  "homepage": "/fpp-IrisMaenhout",
   "proxy": "https://gdmgent-2324-xr.github.io",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
