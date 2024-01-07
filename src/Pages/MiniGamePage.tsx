@@ -176,9 +176,11 @@ import { MiniGameWorld } from "Components/Physics/Rapier/World/MinigameWorld";
 import InstructionsMiniGame from "Components/UserInterface/Popups/InstructionsMiniGame";
 import GameOverPopup from "Components/UserInterface/Popups/gameOverPopup";
 import Scoreboard from "Components/UserInterface/ScoreBoard/ScoreBoard";
+import { NAVIGATION } from "Configs/navigation";
 
 import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
 /**
@@ -274,12 +276,28 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     config: { duration: 300 }
   });
 
+  const navigate = useNavigate();
+
+    const handleClickRoomBtn = () => {
+        setTimeout(()=>{
+            navigate(`../${NAVIGATION.PATH.PHYSICS_RAPIER_WORLD}`);
+        }, 500);
+    }
+
   
 
   console.log(highscore);
 
   return (
     <>
+
+    <button
+      onClick={handleClickRoomBtn}
+      className="bg-amber-500 rounded-full w-[3rem] h-[3rem] z-10 absolute bottom-0 left-0 m-8 hover:scale-125 transition duration-300 ease-in-out hover:bg-gradient-to-r hover:from-amber-500 hover:to-yellow-400 flex justify-center items-center"
+    >
+      <i className="fa-solid fa-bed text-xl text-white"></i>
+    </button>
+
     <Scoreboard 
       currentScore={currentScore} 
       highScore={highscore} 
