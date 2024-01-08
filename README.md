@@ -1,3 +1,5 @@
+![Bedroom](public/images/3d_portfolio.jpg)
+
 # First–Person Portfolio
 This is my portfolio based on my real room. My intrests are visible through the objects in this room, like reading books, listening to music, painting, coding, traveling, etc.
 You can also learn more about me on a proffesional level by the projects that are displayed on the wall and the post-it's that show my technical skills. You can also contact me by looking at the contact card on the table.
