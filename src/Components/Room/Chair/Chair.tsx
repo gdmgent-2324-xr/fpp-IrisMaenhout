@@ -1,17 +1,13 @@
-import { useGLTF } from "@react-three/drei";
-import { GLTFResult } from "../gltfResult";
-
-import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
-import { GLTF } from "three-stdlib";
-import glbModel from '../room_final.glb';
+import React, { useState } from "react";
 import { RigidBody } from "@react-three/rapier";
 import { useSpring, animated } from '@react-spring/three';
 import { to } from '@react-spring/three';
 import { a } from "@react-spring/three";
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-export function Chair({ nodes, materials }: any) {
+function Chair({ nodes, materials }: any) {
+
+    // ___________ Animations _______________
     const [movedBackwards, setMovedBackwards] = useState(false);
     const [rotateChair, setRotateChair] = useState(false);
     
@@ -21,7 +17,6 @@ export function Chair({ nodes, materials }: any) {
 
         // Rotate chair when chair moves backwards
         setRotateChair(movedBackwards);
-
     };
 
      // create a common spring that will be used later to interpolate other values
@@ -51,7 +46,7 @@ export function Chair({ nodes, materials }: any) {
                 onPointerOut={cursorInactiveHandler}
                 onPointerOver={cursorActiveHandler}
 
-                >
+            >
 
 
                 <a.mesh
@@ -72,7 +67,7 @@ export function Chair({ nodes, materials }: any) {
                         material={materials.Mat_black_not_reflective}
                     />
                 </a.mesh>
-                </animated.group>
+            </animated.group>
         </RigidBody>
         
     );

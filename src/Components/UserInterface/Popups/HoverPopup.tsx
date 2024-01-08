@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -15,7 +15,6 @@ type PopupProps = {
 };
 
 type CustomStyles = {
-  // Add the 'transition' property
   transition?: string;
 } & React.CSSProperties;
 
@@ -42,7 +41,6 @@ const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProg
 
                 <CircularProgressbar
                   value={percentage}
-                  // text={`${percentage}%`}
                   styles={buildStyles({
                     pathTransition: percentage === 0 ? "none" : "stroke-dashoffset 0.5s ease 0s",
                     // How long animation takes to go from one percentage to another, in seconds
@@ -54,22 +52,7 @@ const HoverPopup: React.FC<PopupProps> = ({ title, text, isDarkmode, currentProg
                   } as CustomStyles)} // Cast to CustomStyles
                 />
               )}
-            </ChangingProgressProvider>
-
-
-
-              {/* <CircularProgressbar 
-                value={progessPercentage} 
-                styles={buildStyles({
-                    // How long animation takes to go from one percentage to another, in seconds
-                    pathTransitionDuration: 0.5,
-
-                    // Colors
-                    pathColor: `${isDarkmode ? `rgba(167, 139, 250, ${progessPercentage / 100})` : `rgba(190, 18, 60, ${progessPercentage / 100})`}`,
-                    trailColor: `${isDarkmode ? '#222222': '#d6d6d6'}`,
-                  })
-                } 
-              /> */}
+              </ChangingProgressProvider>
 
             </div>
             

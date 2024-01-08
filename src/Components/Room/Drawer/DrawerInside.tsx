@@ -4,17 +4,16 @@ import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInter
 import { useSpring, animated } from '@react-spring/three';
 import { to } from '@react-spring/three';
 
+type Props = {
+    geometry: any;
+    materials: any;
+    handleClick: VoidFunction;
+    isActive: boolean;
+    name: string;
+};
+    
+const DrawerInside: React.FC<Props> = ({geometry, materials, handleClick, isActive, name}) => {
 
-export function DrawerInside({geometry, materials, handleClick, isActive, name} :any) {
-    // geometry nodes object {
-    //     mesh1: 
-    //     mesh2: 
-    // }
-
-    // materials object {
-    //     mesh1: 
-    //     mesh2: 
-    // }
     const { position } = useSpring({ position: isActive ? [0, 0, -0.25] : [0, 0, 0] });
 
     const animatedPosition = to(position, (x, y, z) => [x, y, z]);
@@ -32,7 +31,6 @@ export function DrawerInside({geometry, materials, handleClick, isActive, name} 
                 onPointerOver={cursorActiveHandler}
             >
                 <mesh
-                    name="Cube070"
                     castShadow
                     receiveShadow
                     geometry={geometry.mesh1}
@@ -40,7 +38,6 @@ export function DrawerInside({geometry, materials, handleClick, isActive, name} 
                 />
 
                 <mesh
-                    name="Cube070_1"
                     castShadow
                     receiveShadow
                     geometry={geometry.mesh2}

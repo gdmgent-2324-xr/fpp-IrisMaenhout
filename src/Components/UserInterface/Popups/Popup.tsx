@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { animated } from '@react-spring/web';
 import { usePopupHelper } from 'Hooks/Helpers/usePopupHelper';
 
@@ -24,15 +24,13 @@ const Popup: React.FC<PopupProps> = ({ title, children, handleClose, isDarkmode,
 
             <div className='flex justify-between gap-8 items-start'>
 
-                <h2 className='mb-6 font-bold text-xl'>{title}</h2>
+              <h2 className='mb-6 font-bold text-xl'>{title}</h2>
 
-                {/* <div className="flex justify-end"> */}
-                <button onClick={handleClose} className=''>
-                    <i className="fa-solid fa-xmark text-2xl text-gray-400"></i>
-                </button>
-            {/* </div> */}
-            
-
+              {/* Close btn */}
+              <button onClick={handleClose} className=''>
+                <i className="fa-solid fa-xmark text-2xl text-gray-400"></i>
+              </button>
+          
             </div>
 
             {children}

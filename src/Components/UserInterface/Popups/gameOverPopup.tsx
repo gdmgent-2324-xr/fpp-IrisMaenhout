@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { animated } from '@react-spring/web';
 import { usePopupHelper } from 'Hooks/Helpers/usePopupHelper';
 import { Link } from "react-router-dom";
@@ -35,8 +35,6 @@ const GameOverPopup: React.FC<PopupProps> = ({ score, handleGameRestart, isDarkm
             <Link className='w-full block text-center outline outline-2 outline-yellow-500 px-4 py-2 text-yellow-500 rounded-md' to={`../${NAVIGATION.PATH.PHYSICS_RAPIER_WORLD}`}>Nee, breng mij terug naar de slaapkamer</Link>
 
           </div>
-
-          
 
         </animated.div>
       </animated.div>

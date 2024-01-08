@@ -1,15 +1,8 @@
-import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
-import { GLTF } from "three-stdlib";
-
+import React, { useState } from "react";
 import { RigidBody } from "@react-three/rapier";
-
-
 import DrawerInside from "./DrawerInside";
 
-
-export function Drawer({nodes, materials} :any) {
+function Drawer({nodes, materials} :any) {
 
     type DrawersState = {
         drawer1: boolean;
@@ -33,9 +26,8 @@ export function Drawer({nodes, materials} :any) {
     }
       
     
-
     return (
-        <>  
+        <group>  
            
             <DrawerInside 
                 name={"drawer1"}
@@ -105,15 +97,6 @@ export function Drawer({nodes, materials} :any) {
                     geometry={nodes.Drawer.geometry}
                     material={materials.Mat_white}
                 />
-                    {/* <mesh
-                        name="Buisness_card"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.Buisness_card.geometry}
-                        material={materials.Buisness_card}
-                    /> */}
-                    {/* <ContactCard nodes={nodes} materials={materials}/> */}
-                {/* </mesh> */}
             </RigidBody>
 
             <RigidBody colliders="cuboid" type="fixed">
@@ -131,7 +114,7 @@ export function Drawer({nodes, materials} :any) {
                     name="Jar_brushes"
                     position={[2.681, 2.103, 3.218]}
                     scale={[0.133, 0.146, 0.133]}
-                    >
+                >
                     <mesh
                         name="Mesh_74"
                         castShadow
@@ -167,9 +150,9 @@ export function Drawer({nodes, materials} :any) {
                         geometry={nodes.Mesh_78.geometry}
                         material={materials.Brush_color}
                     />
-                    </group>
+                </group>
             </RigidBody>
-        </>
+        </group>
         
     );
 }

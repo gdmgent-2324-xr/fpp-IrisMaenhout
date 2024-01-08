@@ -1,73 +1,62 @@
-import { Html, useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useRef, useState } from "react";
-import { GLTF } from "three-stdlib";
+import { Html } from "@react-three/drei";
+import React, { useState } from "react";
 import { useSpring } from '@react-spring/web';
-
-import { RigidBody } from "@react-three/rapier";
 import ContactCardPopup from "Components/UserInterface/Popups/ContactCardPopup";
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-export function ContactCard({nodes, materials, isDarkMode} :any) {
+type Props = {
+  materials: any;
+  isDarkMode: boolean;
+};
 
-    const [showPopup, setShowPopup] = useState(false);
-    // const [showPopup, setShowPopup] = useState(false);
+const ContactCard: React.FC<Props> = ({materials, isDarkMode}) => {
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  function handleClick(){
+    // Open popup with contact card
+    setShowPopup(true);
+  }
+
+  const popupAnimation = useSpring({
+    opacity: showPopup ? 1 : 0,
+    transform: showPopup ? 'scale(1)' : 'scale(0.5)',
+    config: { duration: 300 }
+  });
+
     
 
-    function handleClick(){
-        // Open popup with choices for different colors
-        setShowPopup(true);
-    }
+  return (
+    <group name="Contact card">
+      <mesh 
+        material={materials.Buisness_card}
+        position={[-0.726, 1.323, -2.25]}
+        rotation={[0, 3, 0]}
+        onClick={handleClick}
+        onPointerEnter={cursorActiveHandler}
+        onPointerLeave={cursorInactiveHandler}
+        onPointerOut={cursorInactiveHandler}
+        onPointerOver={cursorActiveHandler}
+      >
+        <boxGeometry args={[0.25, 0.005, 0.15]}/>
+      </mesh>
 
-    const popupAnimation = useSpring({
-      opacity: showPopup ? 1 : 0,
-      transform: showPopup ? 'scale(1)' : 'scale(0.5)',
-      config: { duration: 300 }
-    });
+      {
+        showPopup && 
+        <Html>
+          <ContactCardPopup 
+            styleAnimated={popupAnimation}
+            isDarkmode={isDarkMode} 
+            handleClose={()=> {
+              setShowPopup(false);
+              setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);}}
+          />
 
-    
-
-    return (
-    
-        // <mesh
-        //     name="Buisness_card"
-        //     castShadow
-        //     receiveShadow
-        //     geometry={nodes.Buisness_card.geometry}
-        //     material={materials.Buisness_card}
-        // />
-        <>
-          <mesh 
-            material={materials.Buisness_card}
-            position={[-0.726, 1.323, -2.25]}
-            rotation={[0, 3, 0]}
-            onClick={handleClick}
-            onPointerEnter={cursorActiveHandler}
-            onPointerLeave={cursorInactiveHandler}
-            onPointerOut={cursorInactiveHandler}
-            onPointerOver={cursorActiveHandler}
-          >
-            <boxGeometry args={[0.25, 0.005, 0.15]}/>
-            {/* <meshStandardMaterial /> */}
-
-          </mesh>
-
-          {
-            showPopup && 
-            <Html>
-               <ContactCardPopup 
-                  styleAnimated={popupAnimation}
-                  isDarkmode={isDarkMode} 
-                  handleClose={()=> {
-                      setShowPopup(false);
-                      setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);}}
-                />
-
-            </Html>
-          }
-        </>
+        </Html>
+      }
+    </group>
      
-    );
+  );
 }
 
 export default ContactCard;

@@ -1,11 +1,7 @@
-import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useRef } from "react";
-import { GLTF } from "three-stdlib";
-
+import React from "react";
 import { RigidBody } from "@react-three/rapier";
 
-export function Door({nodes, materials} :any) {
+function Door({nodes, materials} :any) {
 
     return (
         <RigidBody colliders="cuboid" type="fixed">

@@ -1,30 +1,34 @@
-import { Html, useGLTF, useKeyboardControls } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
-import { GLTF } from "three-stdlib";
-
+import { Html } from "@react-three/drei";
+import React, { useEffect, useState } from "react";
 import { RigidBody } from "@react-three/rapier";
 import HoverPopup from "Components/UserInterface/Popups/HoverPopup";
-import { useFrame, useThree } from "@react-three/fiber";
 import { useSpring as useSpringWeb} from '@react-spring/web';
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-export function ProjectFrames({nodes, materials, isDarkMode} :any) {
+
+// Type checking
+type Props = {
+    nodes: any;
+    materials: any;
+    isDarkMode: boolean;
+};
+        
+const ProjectFrames: React.FC<Props> = ({nodes, materials, isDarkMode}) => {
 
     const projectInfo = {
         edu: {
             title: "Edu (onderwijsplatform)",
             text: "Edu is een website waar (toekomstige) islamitische leerkrachten kennis, onderzoeken en lessenmateriaal met elkaar kunnen delen. Bij dit project maakte ik zowel het design als de website zelf met behulp van statamic (cms)."
-            },
+        },
         internship: {
             title: "Rebranding Ntriga website",
             text: "Ik heb in het 2de semester van 2023 een stage gedaan bij Ntriga. Het design voor deze website heb ik gemaakt onder de begeleiding van mijn stagementor."
-            },
+        },
         
         deRuytter: {
             title: "Rebranding De Ruytter website ",
             text: "Op mijn stage kreeg ik de taak om een nieuw webdesign voor de website van De Ruytter (een B2B bedrijf dat eten verkoopt) te voorzien. Het design moest ook algemeen toepasbaar zijn op webshops voor de toekomstige klanten van Ntriga."
-            },
+        },
 
     }
 
@@ -63,8 +67,6 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
         const handleProgress = () => {
           const currentTime = Date.now();
           const holdTime = currentTime - timeMouse.mouseDown;
-
-          console.log((holdTime / holdDuration) * 100);
       
           if (holdTime >= 0 && holdTime <= holdDuration) {
             setProgressBarPercentage(prev => (
@@ -85,7 +87,7 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
         };
       
         if (timeMouse.mouseDown > 0) {
-          intervalId = setInterval(handleProgress, 100); // Adjust interval as needed for smoother updates
+          intervalId = setInterval(handleProgress, 100);
         }
       
         return () => clearInterval(intervalId);
@@ -95,7 +97,6 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
 
     // Get the time when the mouse is pressed
     function handleMouseDown(){
-        console.log("MouseDown");
         setTimeMouse({
             mouseUp: 0,
             mouseDown: Date.now()
@@ -115,8 +116,6 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
         ));
 
         if(progressBarPercentage.currentPercentage >= 100){
-            
-            console.log("open link");
             window.open(link, '_blank');
         }
 
@@ -167,13 +166,10 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                     position={[-2.999, 1.83, 1.65]}
                     rotation={[0, 0, -Math.PI / 2]}
                     scale={0.545}
-                    // onClick={()=> openProject("https://ntriga.be/")}
                     onPointerOver={()=> handleOnHover(projectInfo.internship.title, projectInfo.internship.text)}
                     onPointerOut={handleNotOnHover}
-                    
                     onPointerDown={handleMouseDown}
                     onPointerUp={()=> openProject("https://ntriga.be/")}
-
                     onPointerEnter={cursorActiveHandler}
                     onPointerLeave={cursorInactiveHandler}
                     >
@@ -200,13 +196,10 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 position={[-2.999, 1.83, 1.65]}
                 rotation={[0, 0, -Math.PI / 2]}
                 scale={0.545}
-                // onClick={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
                 onPointerOver={()=> handleOnHover(projectInfo.deRuytter.title, projectInfo.deRuytter.text)}
                 onPointerOut={handleNotOnHover}
-
                 onPointerDown={handleMouseDown}
                 onPointerUp={()=> openProject("https://xd.adobe.com/view/5aa3a966-bec2-4768-9eae-9119fbd0bd19-0ff0/screen/7ba1e7a5-5ff3-47bb-a9bb-e79bc7adef9b?fullscreen")}
-
                 onPointerEnter={cursorActiveHandler}
                 onPointerLeave={cursorInactiveHandler}
                 >
@@ -233,13 +226,10 @@ export function ProjectFrames({nodes, materials, isDarkMode} :any) {
                 position={[-2.999, 1.83, 1.65]}
                 rotation={[0, 0, -Math.PI / 2]}
                 scale={0.545}
-                // onClick={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
                 onPointerOver={()=> handleOnHover(projectInfo.edu.title, projectInfo.edu.text)}
                 onPointerOut={handleNotOnHover}
-
                 onPointerDown={handleMouseDown}
                 onPointerUp={()=> openProject("https://github.com/cms-development/werkstuk---edu-platform-IrisMaenhout")}
-
                 onPointerEnter={cursorActiveHandler}
                 onPointerLeave={cursorInactiveHandler}
                 

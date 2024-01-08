@@ -21,7 +21,6 @@ export function usePopupHelper(popupRef: React.RefObject<HTMLDivElement>) {
         sessionStorage.removeItem("isPointerLockActive");
       }
       sessionStorage.setItem("isPointerLockActive", "false");
-      console.log("Visible");
     }, options);
 
     if (popupRef.current) {

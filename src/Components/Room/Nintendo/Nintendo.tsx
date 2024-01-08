@@ -1,21 +1,19 @@
-import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useRef } from "react";
-import { GLTF } from "three-stdlib";
-
+import React from "react";
 import { RigidBody } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import { NAVIGATION } from "Configs/navigation";
 import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInterface/CursorOverlay";
 
-export function Nintendo({nodes, materials} :any) {
+function Nintendo({nodes, materials} :any) {
     const navigate = useNavigate();
-
+    
+    // If the user clicks on the nintendo switch then they will be teleported in a minigame
     const handleClick = () => {
         setTimeout(()=>{
             navigate('../' + NAVIGATION.PATH.MINIGAME);
         }, 500);
     }
+
     return (
         <RigidBody colliders="cuboid" type="fixed">
             <group 
@@ -49,8 +47,6 @@ export function Nintendo({nodes, materials} :any) {
                 />
             </group>
         </RigidBody> 
-        
-        
     );
 }
 

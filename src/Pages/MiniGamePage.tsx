@@ -1,199 +1,26 @@
-// import { useSpring } from "@react-spring/web";
-// import { GroupProps } from "@react-three/fiber";
-// import { MiniGameWorld } from "Components/Physics/Rapier/World/MinigameWorld";
-// import HoverPopup from "Components/UserInterface/Popups/HoverPopup";
-// import InstructionsMiniGame from "Components/UserInterface/Popups/InstructionsMiniGame";
-// import GameOverPopup from "Components/UserInterface/Popups/gameOverPopup";
-// import Scoreboard from "Components/UserInterface/ScoreBoard/ScoreBoard";
-
-// import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
-// import { useEffect, useState } from "react";
-
-
-// /**
-//  * Page for Rapier World.
-//  *
-//  * @param {GroupProps} props
-//  * @returns {React.JSX.Element}
-//  */
-// const MiniGamePage = (props: GroupProps): React.JSX.Element => {
-
-//   // Clear sesion storage on page reload
- 
-
-//   // const [highscore, setHighscore] = useState<number>(() => {
-//   //   const storedHighscore = localStorage.getItem("highscore");
-//   //   return storedHighscore ? Number(storedHighscore) : 0;
-//   // });
-
-//   const [scores, setScores] = useState({
-//     highscore: localStorage.getItem("highscore") ? Number(localStorage.getItem("highscore")) : 0,
-//     currentScore: 0,
-//   })
-
-//   // const [currentScore, setCurrentScore] = useState(0);
-
-//   const [color, setColor] = useState<string>(() => {
-//     const storedColor = sessionStorage.getItem("randomColor");
-//     return storedColor ? storedColor : "";
-//   });
-
-//   // const [popupsVisible, setPopupsVisible] = useState({
-//   //   startGame: true,
-//   //   gameOver: false
-//   // });
-//   // const [gameStarted, setGameStarted] = useState(false);
-
-//   const [gameProgress, setGameProgress] = useState({
-//     gameStarted: false,
-//     gameOver: false
-//   });
-
-
-//   // _______ Update current score ___________
-//   useEffect(() => {
-//     sessionStorage.clear();
-
-//     const interval = setInterval(()=>{
-//       setScores( prev => {
-//         const storedScore = sessionStorage.getItem("score");
-//         return {
-//           ...prev,
-//           currentScore: storedScore ? Number(storedScore) : 0,
-//         }
-//       });
-
-//       setGameProgress( prev => {
-//         const storedGameOver = sessionStorage.getItem("gameOver");
-//         return {
-//           ...prev,
-//           gameOver: storedGameOver === "true" ? true : false,
-//         }
-//       });
-
-
-
-//     }, 5000);
-
-//     // const interval2 = setInterval(()=>{
-//     //   setColor(()=>{
-//     //     const storedColor = sessionStorage.getItem("randomColor");
-//     //     return storedColor ? storedColor : "";
-//     //   });
-//     // }, 2000)
-
-//     return () => {
-//       clearInterval(interval);
-//       // clearInterval(interval2);
-//     };
-//   }, []);
-
-
-//   // _______ Update highscore ___________
-//   useEffect(() => {
-//     setScores( prev => {
-//       const storedHighscore = localStorage.getItem("highscore");
-//       return {
-//         ...prev,
-//         highscore: storedHighscore ? Number(storedHighscore) : 0
-//         }
-//     });
-//   }, [scores.currentScore]);
-
-//   function startGame(){
-//     setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
-//     setGameProgress({
-//       gameOver: false,
-//       gameStarted: true
-//     });
-//   }
-
-
-//   const popupAnimation = useSpring({
-//     opacity: !(gameProgress.gameStarted) || gameProgress.gameOver ? 1 : 0,
-//     transform: !(gameProgress.gameStarted) || gameProgress.gameOver ? 'scale(1)' : 'scale(0.5)',
-//     config: { duration: 300 }
-// });
-
-  
-
-//   return (
-//     <>
-//     <Scoreboard 
-//       currentScore={scores.currentScore} 
-//       highScore={scores.highscore} 
-//       isDarkmode={false}
-//     />
-
-//     {
-//       color !== "" &&
-//       (
-//         <div className="z-10 absolute top-0 left-0 w-full flex justify-center mt-8">
-//           <div className={`bg-${color}-400 rounded-md  py-4 px-8 border-4 border-white`}>
-//             <h3 className="font-bold text-lg text-white">{color.charAt(0).toUpperCase() + color.slice(1)}</h3>
-//           </div>
-
-//         </div>
-        
-//       )
-//     }
-
-//     {
-//       !(gameProgress.gameStarted) && (
-//         <>
-//           <div className="absolute bg-yellow-300 w-full h-full top-0 left-0 z-10"></div>
-//           <InstructionsMiniGame handleClose={startGame} styleAnimated={popupAnimation}/>
-//         </>
-//       )
-//     }
-
-//     {
-//       (gameProgress.gameOver) && (
-//         <>
-//           <div className="absolute bg-red-700 w-full h-full top-0 left-0 z-10"></div>
-//           <GameOverPopup isDarkmode={false} handleGameRestart={startGame}  styleAnimated={popupAnimation} score={scores.currentScore}/>
-//         </>
-//       )
-//     }
-    
-    
-    
-//     <Layout>
-//       <MiniGameWorld gameStarted={gameProgress.gameStarted}/>
-//     </Layout>
-//     </>
-    
-    
-//   );
-// };
-
-// export { MiniGamePage };
-
-
 import { useSpring } from "@react-spring/web";
 import { GroupProps } from "@react-three/fiber";
 import { MiniGameWorld } from "Components/Physics/Rapier/World/MinigameWorld";
+import IconBtn from "Components/UserInterface/Btns/IconBtn";
 import InstructionsMiniGame from "Components/UserInterface/Popups/InstructionsMiniGame";
-import GameOverPopup from "Components/UserInterface/Popups/gameOverPopup";
+import GameOverPopup from "Components/UserInterface/Popups/GameOverPopup";
 import Scoreboard from "Components/UserInterface/ScoreBoard/ScoreBoard";
 import { NAVIGATION } from "Configs/navigation";
 
 import { Layout } from "Layouts/SceneRapierFirstPersonLayout";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 /**
- * Page for Rapier World.
+ * Page for Mini game.
  *
  * @param {GroupProps} props
  * @returns {React.JSX.Element}
  */
 const MiniGamePage = (props: GroupProps): React.JSX.Element => {
 
-  // Clear sesion storage on page reload
- 
-
+  // Check if there is a highscore saved in localstorage otherwise it get set to 0
   const [highscore, setHighscore] = useState<number>(() => {
     const storedHighscore = localStorage.getItem("highscore");
     return storedHighscore ? Number(storedHighscore) : 0;
@@ -212,6 +39,7 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
 
   // _______ Update current score ___________
   useEffect(() => {
+    // Clear sesion storage on page reload
     sessionStorage.clear();
 
     if(!gameOver){
@@ -220,15 +48,19 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
           const storedScore = sessionStorage.getItem("score");
           return storedScore ? Number(storedScore) : 0;
         });
-  
+        
+        // Check if game is over
         setGameOver(sessionStorage.getItem("gameOver") === "true" ? true : false);
-  
+        
+        // If game is over then set gameStarted to false so that gameplay is disabled.
         if(gameOver){
           setGameStarted(false);
         }
   
       }, 5000);
-  
+      
+
+      // Update current selected color
       const interval2 = setInterval(()=>{
         setColor(()=>{
           const storedColor = sessionStorage.getItem("randomColor");
@@ -264,6 +96,7 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
   }
 
 
+  // ___________ Animation values ______________
   const popupInstructionAnimation = useSpring({
     opacity: !gameStarted ? 1 : 0,
     transform: !gameStarted ? 'scale(1)' : 'scale(0.5)',
@@ -276,34 +109,28 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     config: { duration: 300 }
   });
 
+
+  // Navigate to the room world by clicking on the navBtn
   const navigate = useNavigate();
 
-    const handleClickRoomBtn = () => {
-        setTimeout(()=>{
-            navigate(`../${NAVIGATION.PATH.PHYSICS_RAPIER_WORLD}`);
-        }, 500);
-    }
-
-  
-
-  console.log(highscore);
+  const handleClickRoomBtn = () => {
+      setTimeout(()=>{
+        navigate(`../${NAVIGATION.PATH.PHYSICS_RAPIER_WORLD}`);
+      }, 500);
+  }
 
   return (
     <>
 
-    <button
-      onClick={handleClickRoomBtn}
-      className="bg-amber-500 rounded-full w-[3rem] h-[3rem] z-10 absolute bottom-0 left-0 m-8 hover:scale-125 transition duration-300 ease-in-out hover:bg-gradient-to-r hover:from-amber-500 hover:to-yellow-400 flex justify-center items-center"
-    >
-      <i className="fa-solid fa-bed text-xl text-white"></i>
-    </button>
+    {/* Nav btn */}
+    <IconBtn handleClick={handleClickRoomBtn} classNamesBtn="bg-amber-500 z-10 absolute bottom-0 left-0 hover:from-amber-500 hover:to-yellow-400 flex justify-center items-center" iconClassNames="fa-bed text-xl"/>
 
     <Scoreboard 
       currentScore={currentScore} 
-      highScore={highscore} 
-      isDarkmode={false}
+      highScore={highscore}
     />
 
+    {/* Color div*/}
     {
       color !== "" &&
       (
@@ -318,7 +145,7 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     }
 
 
-    {/* Instruction */}
+    {/* Instruction popup*/}
     {
       !gameStarted && (
         <>
@@ -337,7 +164,7 @@ const MiniGamePage = (props: GroupProps): React.JSX.Element => {
     </Layout>
 
 
-    {/* Game over */}
+    {/* Game over popup*/}
     {
       gameOver && (
        <>

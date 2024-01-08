@@ -1,17 +1,7 @@
+import React from "react";
 
-import { useGLTF } from "@react-three/drei";
-// import { GLTFResult } from "../../gltfResult";
-import { GLTFResult } from "Components/Room/gltfResult";
-import * as THREE from "three";
-import React, { useRef } from "react";
-import { GLTF } from "three-stdlib";
+export function OpenBook({nodes, materials}: any) {
 
-import glbModel from '../../room_final.glb';
-import { RigidBody } from "@react-three/rapier";
-
-export function OpenBook() {
-
-    const { nodes, materials } = useGLTF(glbModel) as GLTFResult;
     return (
 
       <group

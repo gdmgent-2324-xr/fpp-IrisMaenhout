@@ -1,5 +1,4 @@
 import {
-  Cylinder,
   PointerLockControls,
   Shadow,
   Sphere,
@@ -133,96 +132,6 @@ const PhysicsRapierWorldPlayer = () => {
 
   });
 
-  // useFrame(() => {
-    
-
-  //   const camera = pointerRef.current.getObject();
-  //   const player = playerRef.current;
-  //   const shadow = shadowRef.current;
-
-  //   // Get Player velocity.
-  //   const playerVelocity = player.linvel(); // Get linear velocity.
-
-  //   // Move Player
-  //   const lateralDirectionModifier = //
-  //     moveRightOn
-  //       ? PLAYER.DIRECTION.RIGHT
-  //       : moveLeftOn
-  //       ? PLAYER.DIRECTION.LEFT
-  //       : PLAYER.DIRECTION.NONE;
-
-  //   const lateralVelocityModifier = PLAYER.VELOCITY.LATERAL;
-
-  //   const longitudinalDirectionModifier = //
-  //     moveForwardOn
-  //       ? PLAYER.DIRECTION.FORWARD
-  //       : moveBackwardOn
-  //       ? PLAYER.DIRECTION.BACKWARD
-  //       : PLAYER.DIRECTION.NONE;
-
-  //   const longitudinalVelocityModifier = //
-  //     moveForwardOn
-  //       ? PLAYER.VELOCITY.FORWARD
-  //       : moveBackwardOn
-  //       ? PLAYER.VELOCITY.DEFAULT
-  //       : PLAYER.VELOCITY.DEFAULT;
-
-  //   const normalDirectionModifier = //
-  //     jumpOn //
-  //       ? PLAYER.DIRECTION.UP
-  //       : PLAYER.DIRECTION.DOWN;
-
-  //   const normalVelocityModifier = PLAYER.VELOCITY.NORMAL;
-
-  //   const runModifier = //
-  //     runOn //
-  //       ? PLAYER.VELOCITY.RUN
-  //       : PLAYER.VELOCITY.DEFAULT;
-        
-  //   velocityVector.set(
-  //     lateralDirectionModifier * lateralVelocityModifier * runModifier,
-  //     normalDirectionModifier * normalVelocityModifier * runModifier, // Camera quaternion should not affect velocity on gravity/normal axis.
-  //     longitudinalDirectionModifier * longitudinalVelocityModifier * runModifier
-  //   );
-
-  //   // Match velocityVector direction to Camera direction.
-  //   velocityVector.applyQuaternion(camera.quaternion);
-  //   velocityVector.y = playerVelocity.y; // Add velocity on gravity axis back after applying camera quaternion.
-
-  //   // Reset angular velocity of Player if no movement detected.
-  //   if (!moveBackwardOn && !moveForwardOn && !moveLeftOn && !moveRightOn) {
-  //     player.setAngvel(ORIGIN_VECTOR);
-  //   }
-
-  //   // Apply linear velocity to Player.
-  //   player.setLinvel(velocityVector);
-
-  //   const playerPosition = player.translation();
-
-  //   // Match Camera position to Player position.
-  //   camera.position.copy(playerPosition);
-  //   camera.position.y += PLAYER.HEIGHT - 0.2;
-  //   // camera.position.y += PLAYER.HEIGHT - PLAYER.SIZE;
-
-  //   // Match Shadow position to Player position.
-  //   shadow.position.copy(playerPosition);
-  //   shadow.position.y = SAFE_OFFSET;
-
-
-  //    // Logic for jumping
-  //    if (jumpOn && Math.abs(playerVelocity.y) < 0.005) {
-  //     velocityVector.y = JUMP_VELOCITY; // Apply jump velocity if not already jumping
-  //   }
-
-
-  //    // Apply linear velocity to Player
-  //    player.setLinvel(velocityVector);
-
-
-
-  // });
-
-  
 
   return (
     <group name="Player">
@@ -245,13 +154,6 @@ const PhysicsRapierWorldPlayer = () => {
           />
         </Sphere>
 
-
-      {/* <Cylinder args={[0.5, 0.5, 1.6, 7]}>
-          <meshBasicMaterial //
-            color={0x00ff00}
-            wireframe={false}
-          />
-        </Cylinder> */}
       </RigidBody>
       <Shadow //
         color="black"

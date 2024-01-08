@@ -1,17 +1,16 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React from 'react';
 
 type props = {
   currentScore: number;
   highScore: number;
-  isDarkmode: boolean;
 };
 
 
-const Scoreboard : React.FC<props> = ({ currentScore, highScore, isDarkmode}) => {
+const Scoreboard : React.FC<props> = ({ currentScore, highScore}) => {
 
     return (
         <div className="bg-white rounded-md z-10 absolute top-0 left-0 m-8 p-4">
-            <h1 className=" text-xl font-bold mb-4 uppercase">Scoreboard</h1>
+            <h1 className=" text-xl font-bold mb-4">Scorebord</h1>
             <hr className="my-4 "/>
 
             <h3 className="bg-lime-300 p-2 rounded flex justify-between gap-4">

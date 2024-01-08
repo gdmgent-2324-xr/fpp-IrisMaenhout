@@ -1,7 +1,5 @@
-import { Billboard, Html, Text, useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import React, { useEffect, useRef, useState } from "react";
-import { GLTF } from "three-stdlib";
+import { Html, } from "@react-three/drei";
+import React, { useState } from "react";
 
 import { RigidBody } from "@react-three/rapier";
 import Popup from "Components/UserInterface/Popups/Popup";
@@ -10,8 +8,13 @@ import { cursorActiveHandler, cursorInactiveHandler } from "Components/UserInter
 import { useSpring, animated } from '@react-spring/three';
 import { useSpring as useSpringWeb} from '@react-spring/web';
 
+type Props = {
+    nodes: any;
+    materials: any;
+    isDarkMode: boolean;
+};
 
-export function Bed({nodes, materials, isDarkMode} :any) {
+const Bed: React.FC<Props> = ({nodes, materials, isDarkMode}) => {
 
     const colors = {
         yellow: "#f7d96a",
@@ -23,10 +26,9 @@ export function Bed({nodes, materials, isDarkMode} :any) {
 
     const [selectedColor, setSelectedColor] = useState(colors.yellow);
     const [showPopup, setShowPopup] = useState(false);
-    
-    // const [collisionTimer, setCollisionTimer] = useState<NodeJS.Timeout | null>(null);
 
-    // ________________ ANIMATIONS ___________________
+
+    // __________ ANIMATIONS __________
     const {colorAnimated} = useSpring({ colorAnimated:  selectedColor});
 
     const popupAnimation = useSpringWeb({
@@ -51,57 +53,16 @@ export function Bed({nodes, materials, isDarkMode} :any) {
         setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);
     }
 
-
-
-    // // Function to handle the start of the collision
-    // function handleCollisionStart() {
-    //     setCollisionTimer(
-    //       setTimeout(() => {
-    //         console.log("Longer collision detected");
-      
-    //         const isDarkmode = sessionStorage.getItem("darkmode") === "true";
-      
-    //         sessionStorage.setItem("darkmode", `${!isDarkmode}`);
-    //       }, 1000)
-    //     );
-    // }
-      
-
-    // // Function to handle the end of the collision
-    // function handleCollisionEnd() {
-    //     if (collisionTimer) {
-    //     clearTimeout(collisionTimer); // Clear the timer when the collision ends
-    //     setCollisionTimer(null);
-    //     }
-    // }
-
-    // // Clear the timer when the component unmounts
-    // useEffect(() => {
-    //     return () => {
-    //       if (collisionTimer) {
-    //         clearTimeout(collisionTimer); 
-    //       }
-    //     };
-    //   }, [collisionTimer]);
-
     return (
         <RigidBody 
             colliders={"hull"} 
             type="fixed"
-            // onCollisionEnter={handleCollisionStart}
-            // onCollisionExit={handleCollisionEnd}
         >
             <mesh
                 name="Blanket"
                 castShadow
                 receiveShadow
                 geometry={nodes.Bed.geometry}
-                // material={materials.Yellow}
-                // material={
-                //     new THREE.MeshStandardMaterial({
-                //         color: selectedColor
-                //     })
-                // }
                 position={[1.132, 0.676, -1.789]}
                 rotation={[Math.PI / 2, Math.PI / 2, 0]}
                 scale={[-1.684, -1.096, -0.576]}
@@ -185,51 +146,22 @@ export function Bed({nodes, materials, isDarkMode} :any) {
                             setShowPopup(false);
                             setTimeout(()=> sessionStorage.setItem("isPointerLockActive", "true"), 500);}}>
                             <div className="flex gap-8 mt-8">
-                                <button className="w-12 h-12 bg-amber-300 block rounded-full"
-                                onClick={()=> handleColorChange(colors.yellow)}>
-                                    {selectedColor === colors.yellow ? 
-                                    <i className="fa-solid fa-check text-lg"></i> : 
-                                    null}
-                                    
-                                </button>
 
-                                <button className="w-12 h-12 bg-purple-400 block rounded-full"
-                                onClick={()=> handleColorChange(colors.purple)}>
-                                    {selectedColor === colors.purple ? 
-                                    <i className="fa-solid fa-check text-lg"></i> : 
-                                    null}
-                                </button>
-
-                                <button 
-                                    className="w-12 h-12 bg-rose-400 block rounded-full"
-                                    onClick={()=> handleColorChange(colors.pink)}>
-
-                                    {selectedColor === colors.pink ? 
-                                    <i className="fa-solid fa-check text-lg"></i> : 
-                                    null}
-
-                                </button>
-
-                                <button 
-                                    className="w-12 h-12 bg-emerald-300 block rounded-full"
-                                    onClick={()=> handleColorChange(colors.green)}>
-
-                                    {selectedColor === colors.green ? 
-                                    <i className="fa-solid fa-check text-lg"></i> : 
-                                    null}
-
-                                </button>    
+                                {/* Color buttons */}
+                                {Object.keys(colors).map((color, i) => (
+                                    <button
+                                        key={i}
+                                        style={{ backgroundColor: colors[color as keyof typeof colors] }}
+                                        className="w-12 h-12 block rounded-full"
+                                        onClick={() => handleColorChange(colors[color as keyof typeof colors])}
+                                    >
+                                        {selectedColor === colors[color as keyof typeof colors] ? (
+                                            <i className="fa-solid fa-check text-lg"></i>
+                                        ) : null}
+                                    </button>
+                                ))}
 
 
-                                <button 
-                                    className="w-12 h-12 bg-cyan-300 block rounded-full"
-                                    onClick={()=> handleColorChange(colors.blue)}>
-
-                                    {selectedColor === colors.blue ? 
-                                    <i className="fa-solid fa-check text-lg"></i> : 
-                                    null}
-
-                                </button> 
 
                             </div>
                         </Popup>

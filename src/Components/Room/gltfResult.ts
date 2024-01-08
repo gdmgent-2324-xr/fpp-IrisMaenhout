@@ -1,4 +1,4 @@
-// types.ts
+// All nodes and materials from the room model
 
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
